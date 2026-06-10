@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- TEST RUN: keep search engines off the prototype. REMOVE this line at real launch on dovrin.com. -->
+<meta name="robots" content="noindex, nofollow" />
+<title>Dovrin — The trust layer between AI and your ERP</title>
+<meta name="description" content="Dovrin is the governed AI layer that lets agents safely act inside Infor M3 — every action grounded in verified data, previewed for consequences, confirmed by a human, and recorded in a tamper-evident audit." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0a0e1a; --ink-2:#111729; --ink-3:#1b2236;
+    --paper:#ffffff; --paper-2:#f6f8fc; --line:#e6eaf2;
+    --text:#0c1322; --muted:#5b6ava; --muted:#586079; --faint:#8a92a6;
+    --brand:#2f5bff; --brand-2:#1d43d8; --brand-soft:#eaf0ff;
+    --verify:#10b981; --verify-soft:#e8f8f1;
+    --warn:#f59e0b; --warn-soft:#fef3e2;
+    --crit:#ef4444; --crit-soft:#fdeceb;
+    --radius:16px; --radius-sm:10px;
+    --shadow:0 1px 2px rgba(12,19,34,.04),0 8px 30px rgba(12,19,34,.08);
+    --shadow-lg:0 24px 70px -20px rgba(12,19,34,.45);
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.55}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+  h1,h2,h3{letter-spacing:-.02em;line-height:1.08;margin:0}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:15px;padding:12px 20px;border-radius:999px;transition:.18s}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 22px -8px rgba(47,91,255,.7)}
+  .btn-primary:hover{background:var(--brand-2);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .btn-ghost:hover{background:var(--paper-2)}
+  .btn-sm{padding:9px 16px;font-size:14px}
+
+  /* ===== Nav ===== */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.03em}
+  .logo .mark{width:32px;height:32px;flex:0 0 auto}
+  .navlinks{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--muted)}
+  .navlinks a:hover{color:var(--text)}
+  .navcta{display:flex;gap:10px;align-items:center}
+  @media(max-width:860px){.navlinks{display:none}.navcta .btn-ghost{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;overflow:hidden;background:var(--ink);color:#eaf0ff;padding:96px 0 110px}
+  .hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(900px 420px at 80% -10%,rgba(47,91,255,.30),transparent 60%),
+    radial-gradient(700px 360px at 0% 110%,rgba(16,185,129,.16),transparent 60%);}
+  .hero::after{content:"";position:absolute;inset:0;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:46px 46px;mask-image:radial-gradient(circle at 50% 35%,#000,transparent 78%)}
+  .hero .wrap{position:relative;z-index:1}
+  .badge-live{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:#7ff0c4;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--verify);box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}70%{box-shadow:0 0 0 9px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+  .hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;max-width:16ch;margin:22px 0 0}
+  .hero h1 .accent{background:linear-gradient(90deg,#6f93ff,#34d8a0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.sub{font-size:clamp(17px,2.1vw,21px);color:#aeb8d4;max-width:60ch;margin:22px 0 0}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+  .hero .btn-ghost{color:#eaf0ff;border-color:rgba(255,255,255,.2)}
+  .hero .btn-ghost:hover{background:rgba(255,255,255,.06)}
+  .trustbar{display:flex;flex-wrap:wrap;gap:14px 30px;align-items:center;margin-top:54px;color:#8893b5;font-size:13.5px;font-weight:500}
+  .trustbar b{color:#cdd6ef;font-weight:600}
+  .trustbar .sep{width:1px;height:16px;background:rgba(255,255,255,.14)}
+
+  /* ===== Section scaffolding ===== */
+  section{padding:90px 0}
+  .section-head{max-width:720px}
+  .section-head h2{font-size:clamp(28px,3.6vw,42px);font-weight:800;margin-top:14px}
+  .section-head p{font-size:18px;color:var(--muted);margin-top:16px}
+  .center{margin-left:auto;margin-right:auto;text-align:center}
+
+  /* ===== Problem ===== */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:48px}
+  @media(max-width:820px){.split{grid-template-columns:1fr}}
+  .pcard{border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:var(--paper)}
+  .pcard.bad{background:var(--paper-2)}
+  .pcard h3{font-size:20px;font-weight:700;margin-bottom:10px}
+  .pcard .tag{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .pcard.bad .tag{color:var(--faint)}
+  .pcard.good .tag{color:var(--verify)}
+  .pcard ul{margin:16px 0 0;padding:0;list-style:none}
+  .pcard li{display:flex;gap:10px;padding:7px 0;color:var(--muted);font-size:15.5px}
+  .pcard li svg{flex:0 0 auto;margin-top:3px}
+
+  /* ===== Demo ===== */
+  .demo{background:var(--ink);color:#dde5fb}
+  .demo .section-head h2{color:#fff}
+  .demo .section-head p{color:#aeb8d4}
+  .appwin{margin-top:40px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow-lg);background:var(--ink-2)}
+  .appbar{display:flex;align-items:center;gap:14px;padding:13px 18px;background:#0c1striped;background:#0c122a;border-bottom:1px solid rgba(255,255,255,.08)}
+  .lights{display:flex;gap:7px}.lights i{width:12px;height:12px;border-radius:50%;display:block}
+  .lights i:nth-child(1){background:#ff5f57}.lights i:nth-child(2){background:#febc2e}.lights i:nth-child(3){background:#28c840}
+  .appbar .title{font-size:13px;color:#8893b5;font-weight:500}
+  .appbar .title b{color:#cdd6ef}
+  .appgrid{display:grid;grid-template-columns:1.05fr .95fr;min-height:430px}
+  @media(max-width:820px){.appgrid{grid-template-columns:1fr}}
+  .pane{padding:26px}
+  .pane.left{border-right:1px solid rgba(255,255,255,.08)}
+  @media(max-width:820px){.pane.left{border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}}
+  .panelabel{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6b76a0}
+  .ask{margin-top:14px;background:#0c122a;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 16px}
+  .ask .who{font-size:12px;color:#7a86ad;font-weight:600;margin-bottom:6px}
+  .ask .msg{font-size:15.5px;color:#eaf0ff;line-height:1.5}
+  .draft{margin-top:18px;border:1px solid rgba(47,91,255,.4);background:rgba(47,91,255,.08);border-radius:12px;padding:14px 16px;opacity:0;transform:translateY(8px);transition:.4s}
+  .draft.show{opacity:1;transform:none}
+  .draft .dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .pill{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+  .pill.draft-p{background:rgba(47,91,255,.18);color:#9db4ff}
+  .pill.exec{background:var(--verify-soft);color:#0a7a55}
+  .kv{font-family:var(--mono);font-size:13px;color:#c3ccea;display:flex;flex-direction:column;gap:5px}
+  .kv span b{color:#fff}
+  .stepbtns{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn-demo{border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;padding:11px 18px;border-radius:10px;background:var(--brand);color:#fff;transition:.16s}
+  .btn-demo:hover{background:var(--brand-2)}
+  .btn-demo[disabled]{opacity:.4;cursor:not-allowed}
+  .btn-demo.ghost{background:rgba(255,255,255,.07);color:#cdd6ef}
+  .btn-demo.confirm{background:var(--verify);box-shadow:0 8px 22px -10px rgba(16,185,129,.8)}
+  .btn-demo.confirm:hover{background:#0ea372}
+  .btn-demo.reject{background:rgba(239,68,68,.14);color:#ffb4ad}
+
+  .preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:#5a6party;color:#566087;gap:12px;padding:30px}
+  .preview-empty svg{opacity:.4}
+  .reads{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+  .read{font-family:var(--mono);font-size:12.5px;color:#8893b5;display:flex;align-items:center;gap:9px;opacity:0;transform:translateX(-6px);transition:.3s}
+  .read.show{opacity:1;transform:none}
+  .read .ok{color:var(--verify)}
+  .prevhead{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+  .status-ok{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--verify)}
+  .impact{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 15px;margin-top:12px;opacity:0;transform:translateY(8px);transition:.45s;background:#0c122a}
+  .impact.show{opacity:1;transform:none}
+  .impact .top{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .sev{font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:6px;text-transform:uppercase}
+  .sev.warn{background:var(--warn-soft);color:#9a6207}
+  .sev.crit{background:var(--crit-soft);color:#b42318}
+  .sev.info{background:var(--brand-soft);color:#1d43d8}
+  .impact .txt{font-size:14.5px;color:#e7ecfb;line-height:1.5}
+  .src{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+  .srctag{font-family:var(--mono);font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,.13);color:#5fe0ab;border:1px solid rgba(16,185,129,.3)}
+  .srctag.doc{background:rgba(47,91,255,.12);color:#9db4ff;border-color:rgba(47,91,255,.3)}
+  .confirmrow{margin-top:18px;border-top:1px solid rgba(255,255,255,.09);padding-top:16px;opacity:0;transition:.4s}
+  .confirmrow.show{opacity:1}
+  .confirmrow .note{font-size:12.5px;color:#8893b5;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
+  .audit{margin-top:16px;font-family:var(--mono);font-size:12px;background:#080d1e;border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:14px;color:#9fb0d6;opacity:0;transform:translateY(8px);transition:.45s}
+  .audit.show{opacity:1;transform:none}
+  .audit .row{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+  .audit .row b{color:#cdd6ef;font-weight:600}
+  .audit .hash{color:#5fe0ab;word-break:break-all}
+  .demo-foot{margin-top:18px;font-size:13px;color:#7a86ad;display:flex;align-items:center;gap:8px}
+
+  /* ===== Loop / how it works ===== */
+  .loop{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:50px}
+  @media(max-width:900px){.loop{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.loop{grid-template-columns:1fr}}
+  .step{position:relative;border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:var(--paper)}
+  .step .n{width:34px;height:34px;border-radius:9px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+  .step h4{margin:14px 0 6px;font-size:16.5px;font-weight:700}
+  .step p{margin:0;font-size:14px;color:var(--muted)}
+  .step .gate{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--verify);font-weight:600}
+
+  /* ===== Pillars ===== */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  @media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.pillars{grid-template-columns:1fr}}
+  .pill-card{border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:.18s;background:var(--paper)}
+  .pill-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+  .pill-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--brand-soft);color:var(--brand);margin-bottom:16px}
+  .pill-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .pill-card p{margin:0;color:var(--muted);font-size:15px}
+
+  /* ===== Industries ===== */
+  .inds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+  @media(max-width:760px){.inds{grid-template-columns:1fr}}
+  .ind{border-radius:var(--radius);padding:26px;color:#fff;position:relative;overflow:hidden;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--ink-3)}
+  .ind.fb{background:linear-gradient(135deg,#0f3d2e,#10b981)}
+  .ind.mfg{background:linear-gradient(135deg,#10224f,#2f5bff)}
+  .ind.dist{background:linear-gradient(135deg,#2a1c4d,#7c3aed)}
+  .ind h3{font-size:20px;font-weight:700}
+  .ind p{margin:6px 0 0;font-size:14px;color:rgba(255,255,255,.82)}
+  .ind .k{position:absolute;top:20px;left:20px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+
+  /* ===== CTA ===== */
+  .cta{background:var(--ink);color:#eaf0ff;border-radius:24px;padding:60px;text-align:center;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 50% -20%,rgba(47,91,255,.35),transparent 60%)}
+  .cta .wrap2{position:relative;z-index:1;max-width:640px;margin:0 auto}
+  .cta h2{font-size:clamp(28px,4vw,40px);font-weight:800}
+  .cta p{color:#aeb8d4;font-size:18px;margin:16px 0 28px}
+  .cta .btn-ghost{color:#eaf0ff;border-color:rgba(255,255,255,.22)}
+
+  /* ===== Footer ===== */
+  footer{border-top:1px solid var(--line);padding:54px 0 40px;margin-top:90px;color:var(--muted);font-size:14.5px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin:14px 0 0;color:var(--muted);font-size:14px}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-col h5{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin:0 0 12px}
+  .foot-col a{display:block;padding:5px 0;color:var(--muted)}
+  .foot-col a:hover{color:var(--text)}
+  .foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--faint)}
+  .powered{font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+
+  .disclaimer{background:var(--warn-soft);border:1px solid #f6d99a;color:#7a5207;font-size:13px;border-radius:10px;padding:10px 14px;display:inline-flex;gap:9px;align-items:center;margin-top:18px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#top">
+        <svg class="mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="#2f5bff"/>
+          <path d="M16 6l8 4.5v6c0 4.6-3.2 7.6-8 9.5-4.8-1.9-8-4.9-8-9.5v-6L16 6z" fill="#0a0e1a" opacity=".25"/>
+          <path d="M11.5 16.2l3.1 3.1 6-6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Dovrin
+      </a>
+      <div class="navlinks">
+        <a href="#problem">Why Dovrin</a>
+        <a href="#demo">See it work</a>
+        <a href="#loop">How it works</a>
+        <a href="#pillars">Governance</a>
+        <a href="#industries">Industries</a>
+      </div>
+      <div class="navcta">
+        <a class="btn btn-ghost btn-sm" href="#demo">Live demo</a>
+        <a class="btn btn-primary btn-sm" href="#cta">Become a design partner</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <span class="badge-live"><span class="dot"></span> Design-partner program now open</span>
+    <h1>The <span class="accent">trust layer</span> between AI and your ERP.</h1>
+    <p class="sub">Dovrin lets AI agents safely <em>act</em> inside Infor&nbsp;M3 — not just observe. Every action is grounded in verified data, previewed for its downstream consequences, confirmed by a human, and recorded in a tamper-evident audit.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#demo">Watch a governed write &rarr;</a>
+      <a class="btn btn-ghost" href="#loop">How the gate works</a>
+    </div>
+    <div class="trustbar">
+      <span>Built for <b>Infor M3 CloudSuite</b></span><span class="sep"></span>
+      <span>Tenant- &amp; ERP-<b>agnostic core</b></span><span class="sep"></span>
+      <span><b>Truth Protocol</b> — every claim source-tagged</span><span class="sep"></span>
+      <span>Designed to a <b>SOC 2 / EU AI Act</b> posture</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The gap</div>
+      <h2>Enterprise AI can advise. It can't be trusted to act.</h2>
+      <p>The market is full of copilots that read your ERP and suggest. The last mile — actually changing a credit limit, a BOM, a reorder point — is where trust breaks down. Dovrin is the governed layer that closes it.</p>
+    </div>
+    <div class="split">
+      <div class="pcard bad">
+        <div class="tag">AI today</div>
+        <h3>Observes &amp; advises</h3>
+        <ul>
+          <li>✕&nbsp; Answers from training data — no proof it's true for <em>your</em> tenant</li>
+          <li>✕&nbsp; Suggests a change, but a human still does the work by hand</li>
+          <li>✕&nbsp; No view of what a change breaks downstream</li>
+          <li>✕&nbsp; If it does write, it's a black box — no audit, no undo trail</li>
+        </ul>
+      </div>
+      <div class="pcard good">
+        <div class="tag">AI with Dovrin</div>
+        <h3>Safely acts — under governance</h3>
+        <ul>
+          <li>✓&nbsp; Every fact carries its source; unverified claims are withheld, not guessed</li>
+          <li>✓&nbsp; Proposes a real ERP write as a draft — never executes on its own</li>
+          <li>✓&nbsp; Shows the consequence of the change <em>before</em> anyone confirms</li>
+          <li>✓&nbsp; A human confirms; the action lands once, in a tamper-evident audit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo" id="demo">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="color:#7ff0c4">See it work</div>
+      <h2>A governed write, start to finish.</h2>
+      <p>An agent proposes raising a customer's credit limit. Watch Dovrin ground it, preview the consequences, and hold it for a human — the way a real change should happen.</p>
+    </div>
+
+    <div class="appwin">
+      <div class="appbar">
+        <div class="lights"><i></i><i></i><i></i></div>
+        <div class="title">Dovrin Console &nbsp;·&nbsp; <b>Acme Distribution</b> &nbsp;·&nbsp; CONO 100 / DIVI 001</div>
+      </div>
+      <div class="appgrid">
+        <!-- LEFT: the ask + draft + controls -->
+        <div class="pane left">
+          <div class="panelabel">Request</div>
+          <div class="ask">
+            <div class="who">▴ Buyer agent · @o2c</div>
+            <div class="msg">"Customer C100 keeps hitting their credit ceiling. Raise their credit limit to <b>$150,000</b> so their orders can ship."</div>
+          </div>
+
+          <div class="draft" id="draftCard">
+            <div class="dh">
+              <span style="font-size:13px;font-weight:700;color:#cdd6ef">Proposed write</span>
+              <span class="pill draft-p" id="draftPill">Draft · not executed</span>
+            </div>
+            <div class="kv">
+              <span>program&nbsp;&nbsp;<b>CRS315MI</b></span>
+              <span>txn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>ChgCreditLimit</b></span>
+              <span>CUNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>C100</b></span>
+              <span>CRLM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>50000 → 150000</b></span>
+            </div>
+          </div>
+
+          <div class="stepbtns" id="controls">
+            <button class="btn-demo" id="btnAsk">Ask Dovrin &rarr;</button>
+          </div>
+          <div class="demo-foot">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 8v4m0 4h.01M12 22a10 10 0 100-20 10 10 0 000 20z" stroke="#7a86ad" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Interactive demo · representative data
+          </div>
+        </div>
+
+        <!-- RIGHT: consequence preview -->
+        <div class="pane right">
+          <div class="prevhead">
+            <span class="panelabel">Consequence Preview</span>
+            <span class="status-ok" id="statusOk" style="display:none">● OK · grounded in live reads</span>
+          </div>
+
+          <div id="previewEmpty" class="preview-empty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="#566087" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#566087" stroke-width="1.6"/></svg>
+            <div>Before anyone confirms, Dovrin shows what this change will <em>do</em> downstream.</div>
+          </div>
+
+          <div id="previewBody" style="display:none">
+            <div class="reads" id="reads"></div>
+            <div class="impact" id="imp1">
+              <div class="top"><span class="sev warn">Warning</span><span style="font-size:12px;color:#8893b5">Order fulfillment</span></div>
+              <div class="txt">Releases <b>2 sales orders</b> on credit hold totaling <b>$87,000</b> — these will become shippable immediately.</div>
+              <div class="src"><span class="srctag">LIVE_TRN · OIS300MI</span><span class="srctag">conf 1.00</span></div>
+            </div>
+            <div class="impact" id="imp2">
+              <div class="top"><span class="sev crit">Critical</span><span style="font-size:12px;color:#8893b5">Credit risk</span></div>
+              <div class="txt">Customer has <b>2 invoices &gt;60 days overdue</b>. Raising the limit extends exposure before collection.</div>
+              <div class="src"><span class="srctag">LIVE_TRN · ARS200MI</span><span class="srctag">conf 1.00</span></div>
+            </div>
+            <div class="impact" id="imp3">
+              <div class="top"><span class="sev info">Note</span><span style="font-size:12px;color:#8893b5">Policy</span></div>
+              <div class="txt">New limit is <b>3× the current</b> ceiling — above the $100k threshold that typically needs finance sign-off.</div>
+              <div class="src"><span class="srctag doc">DOC_INFOR · credit policy</span><span class="srctag doc">conf 0.90</span></div>
+            </div>
+
+            <div class="confirmrow" id="confirmRow">
+              <div class="note">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex:0 0 auto;margin-top:1px"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="#7ff0c4" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="#7ff0c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                The agent cannot execute this. A human operator confirms — Dovrin then runs the write exactly once.
+              </div>
+              <div class="stepbtns">
+                <button class="btn-demo confirm" id="btnConfirm">✓ Confirm as operator</button>
+                <button class="btn-demo reject" id="btnReject">Reject</button>
+              </div>
+            </div>
+
+            <div class="audit" id="auditBox">
+              <div class="row"><span>result</span><b class="hash" style="color:#5fe0ab">EXECUTED · once</b></div>
+              <div class="row"><span>operator</span><b>erich.s · MFA ✓</b></div>
+              <div class="row"><span>previewHash</span><span class="hash">a3f1…what the human saw</span></div>
+              <div class="row"><span>entryHash</span><span class="hash" id="entryHash">9c4e7b…</span></div>
+              <div class="row"><span>chain</span><b style="color:#5fe0ab">verified ✓</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-foot" style="justify-content:center;margin-top:20px">
+      Dovrin executes only on human confirmation. Every fact above is source-tagged; nothing is asserted that wasn't read.
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS / LOOP -->
+<section id="loop">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The governed loop</div>
+      <h2>Five steps. No write skips one.</h2>
+      <p>Dovrin turns "the AI changed something" into a sequence you can defend in an audit. The same gate holds on every path — chat, agent, or integration.</p>
+    </div>
+    <div class="loop">
+      <div class="step"><div class="n">1</div><h4>Ground</h4><p>Read live ERP state. Every value is tagged with its source and confidence.</p><div class="gate">Truth Protocol</div></div>
+      <div class="step"><div class="n">2</div><h4>Draft</h4><p>The agent proposes a real ERP write — as a draft. It holds no power to execute.</p><div class="gate">advisory-only</div></div>
+      <div class="step"><div class="n">3</div><h4>Preview</h4><p>Show the downstream consequences before anyone commits — orders, exposure, policy.</p><div class="gate">Consequence Preview</div></div>
+      <div class="step"><div class="n">4</div><h4>Confirm</h4><p>A verified human approves. The agent never holds the confirmation key.</p><div class="gate">human-in-the-loop</div></div>
+      <div class="step"><div class="n">5</div><h4>Audit</h4><p>Execute exactly once. Record it in a hash-chained log that detects any tampering.</p><div class="gate">tamper-evident</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="pillars" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Why it's trustworthy</div>
+      <h2>Governance isn't a feature. It's the foundation.</h2>
+      <p>Most AI tools bolt on guardrails. Dovrin is built inside-out from a single rule: never assert what you can't verify, and never act without a human.</p>
+    </div>
+    <div class="pillars">
+      <div class="pill-card">
+        <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m-3-7l8 4v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V7l8-4z" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Truth Protocol</h3>
+        <p>Every claim about your ERP carries its source and a confidence score. Unverified claims are flagged and never clear the bar to write — the system is built to surface "I can't verify that" rather than pass a guess off as fact.</p>
+      </div>
+      <div class="pill-card">
+        <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2" stroke="#2f5bff" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Human-confirmed writes</h3>
+        <p>An agent can propose a write, never execute one. A verified operator confirms; the action runs exactly once. No agent ever holds the key.</p>
+      </div>
+      <div class="pill-card">
+        <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="#2f5bff" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#2f5bff" stroke-width="1.8"/></svg></div>
+        <h3>Consequence Preview</h3>
+        <p>Before a change is confirmed, see what it touches downstream — held orders, open POs, credit exposure — each impact traced to the live read it came from.</p>
+      </div>
+      <div class="pill-card">
+        <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Tamper-evident audit</h3>
+        <p>Every operation is hash-chained, recording what the human saw at confirm. Any edit, deletion, or reorder is detectable — built for the auditor.</p>
+      </div>
+      <div class="pill-card">
+        <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#2f5bff" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" stroke="#2f5bff" stroke-width="1.4"/></svg></div>
+        <h3>Agnostic by design</h3>
+        <p>One governed core, any tenant, any Infor product. M3 is the first adapter — not the foundation. The same trust layer extends to LN and beyond.</p>
+      </div>
+      <div class="pill-card">
+        <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8" stroke="#2f5bff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Powered-by model</h3>
+        <p>Dovrin is the engine inside your ERP automation — "&lt;ERP&gt; Agentic Solutions, powered by Dovrin." Your workflows, our governance underneath.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Where it lands first</div>
+      <h2>Built for the most-audited corners of the ERP.</h2>
+      <p>The higher the stakes of a bad change, the more a governed write is worth. We start where a mistake is a recall, a stockout, or a blown margin.</p>
+    </div>
+    <div class="inds">
+      <div class="ind fb"><div class="k">Flagship</div><h3>Food &amp; Beverage</h3><p>Recipe, allergen, shelf-life and lot changes — preview the blast radius before a single record moves.</p></div>
+      <div class="ind mfg"><div class="k">Live now (mock)</div><h3>Manufacturing</h3><p>BOM, routing, reorder-point and production-order changes — see the open orders a change re-drives.</p></div>
+      <div class="ind dist"><div class="k">Foundation</div><h3>Distribution</h3><p>Credit limits, pricing, item blocks, supplier banking — the order-to-cash and procure-to-pay core.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta">
+      <div class="wrap2">
+        <div class="eyebrow" style="color:#7ff0c4">Design-partner program</div>
+        <h2>Put governed AI in your M3 — with a partner, not a pilot light.</h2>
+        <p>We're onboarding a small number of design partners to run Dovrin against a real tenant. You bring the M3 environment and the use case; we bring the governed engine and build it with you.</p>
+        <div class="hero-cta" style="justify-content:center">
+          <a class="btn btn-primary" href="#">Request design-partner access</a>
+          <a class="btn btn-ghost" href="#demo">Replay the demo</a>
+        </div>
+        <div class="disclaimer" style="margin-top:24px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 3.9L2 18a2 2 0 001.7 3h16.6A2 2 0 0022 18L13.7 3.9a2 2 0 00-3.4 0z" stroke="#9a6207" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          Honest status: Dovrin is design-partner-ready, not yet generally available. The governed loop runs end-to-end on representative data; live-tenant validation is exactly what the design-partner program is for.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top" style="font-size:19px">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" style="width:28px;height:28px"><rect width="32" height="32" rx="9" fill="#2f5bff"/><path d="M11.5 16.2l3.1 3.1 6-6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Dovrin
+        </a>
+        <p>The trust layer between AI and your ERP. Agentic AI for enterprise ERP — governed, verifiable, human-confirmed.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="#demo">Live demo</a>
+          <a href="#loop">How it works</a>
+          <a href="#pillars">Governance</a>
+          <a href="#industries">Industries</a>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#">About</a>
+          <a href="#cta">Design partners</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="foot-col">
+          <h5>Trust</h5>
+          <a href="#">Truth Protocol</a>
+          <a href="#">Security posture</a>
+          <a href="#">EU AI Act</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Simmer Group LLC. Dovrin is a product of Simmer Group LLC.</span>
+      <span class="powered">&lt;ERP&gt; Agentic Solutions — powered by Dovrin</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var asked=false, previewed=false, done=false;
+  var btnAsk=document.getElementById('btnAsk');
+  var controls=document.getElementById('controls');
+  var draft=document.getElementById('draftCard');
+  var pe=document.getElementById('previewEmpty');
+  var pb=document.getElementById('previewBody');
+  var reads=document.getElementById('reads');
+  var statusOk=document.getElementById('statusOk');
+  var imps=['imp1','imp2','imp3'].map(function(id){return document.getElementById(id)});
+  var confirmRow=document.getElementById('confirmRow');
+  var auditBox=document.getElementById('auditBox');
+  var draftPill=document.getElementById('draftPill');
+
+  var READS=[
+    'read OIS300MI/LstHead  CUNO=C100 ORST=*HELD',
+    'read ARS200MI/LstAgedDebt  CUNO=C100',
+    'read CRS315MI/GetCreditInfo  CUNO=C100'
+  ];
+
+  function ask(){
+    if(asked) return; asked=true;
+    draft.classList.add('show');
+    controls.innerHTML='<button class="btn-demo" id="btnPrev">Run Consequence Preview &rarr;</button>';
+    document.getElementById('btnPrev').addEventListener('click',preview);
+  }
+
+  function preview(){
+    if(previewed) return; previewed=true;
+    document.getElementById('btnPrev').setAttribute('disabled','');
+    pe.style.display='none'; pb.style.display='block';
+    // stream reads
+    READS.forEach(function(r,i){
+      var el=document.createElement('div'); el.className='read';
+      el.innerHTML='<span class="ok">✓</span> '+r;
+      reads.appendChild(el);
+      setTimeout(function(){el.classList.add('show')}, 250*i+150);
+    });
+    var base=250*READS.length+350;
+    setTimeout(function(){statusOk.style.display='inline-flex'},base);
+    imps.forEach(function(el,i){ setTimeout(function(){el.classList.add('show')}, base+260*(i+1)); });
+    setTimeout(function(){confirmRow.classList.add('show')}, base+260*(imps.length+1)+150);
+  }
+
+  function rand(){var s='';var c='0123456789abcdef';for(var i=0;i<10;i++)s+=c[Math.floor(Math.random()*16)];return s;}
+
+  function confirm(){
+    if(done) return; done=true;
+    draftPill.textContent='Executed ✓'; draftPill.className='pill exec';
+    document.getElementById('entryHash').textContent=rand()+'…';
+    confirmRow.style.display='none';
+    auditBox.classList.add('show');
+  }
+  function reject(){
+    draftPill.textContent='Rejected — not executed'; draftPill.style.background='rgba(239,68,68,.15)'; draftPill.style.color='#ffb4ad';
+    confirmRow.querySelector('.note').innerHTML='<span style="color:#ffb4ad">Operator rejected the change. Nothing was written; the draft is discarded and the rejection is audited.</span>';
+    confirmRow.querySelector('.stepbtns').style.display='none';
+  }
+
+  btnAsk.addEventListener('click',ask);
+  document.addEventListener('click',function(e){
+    if(e.target&&e.target.id==='btnConfirm')confirm();
+    if(e.target&&e.target.id==='btnReject')reject();
+  });
+})();
+</script>
+</body>
+</html>
