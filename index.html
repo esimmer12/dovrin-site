@@ -6,6 +6,7 @@
 <!-- TEST RUN: keep search engines off the prototype. REMOVE this line at real launch on dovrin.com. -->
 <meta name="robots" content="noindex, nofollow" />
 <title>Dovrin — The trust layer between AI and your ERP</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <meta name="description" content="Dovrin is the governed AI layer that lets agents safely act inside Infor M3 — every action grounded in verified data, previewed for consequences, confirmed by a human, and recorded in a tamper-evident audit." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -208,6 +209,19 @@
   .powered{font-family:var(--mono);font-size:12.5px;color:var(--faint)}
 
   .disclaimer{background:var(--warn-soft);border:1px solid #f6d99a;color:#7a5207;font-size:13px;border-radius:10px;padding:10px 14px;display:inline-flex;gap:9px;align-items:center;margin-top:18px}
+
+  /* ERP-agnostic cards */
+  .erpgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
+  @media(max-width:900px){.erpgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.erpgrid{grid-template-columns:1fr}}
+  .erpcard{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:var(--paper)}
+  .erpcard h3{font-size:18px;font-weight:700;margin:0 0 6px;line-height:1.2}
+  .erpcard p{margin:0;color:var(--muted);font-size:14px}
+  .erpstat{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;margin-bottom:14px}
+  .erpstat.built{background:var(--verify-soft);color:#0a7a55}
+  .erpstat.scoped{background:var(--brand-soft);color:#1d43d8}
+  .erpstat.road{background:var(--warn-soft);color:#9a6207}
+  .erpstat.core{background:#eef0f5;color:#475067}
 </style>
 </head>
 <body>
@@ -217,10 +231,11 @@
   <div class="wrap">
     <nav>
       <a class="logo" href="#top">
-        <svg class="mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="32" height="32" rx="9" fill="#2f5bff"/>
-          <path d="M16 6l8 4.5v6c0 4.6-3.2 7.6-8 9.5-4.8-1.9-8-4.9-8-9.5v-6L16 6z" fill="#0a0e1a" opacity=".25"/>
-          <path d="M11.5 16.2l3.1 3.1 6-6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="dg" x1="6" y1="4" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b6bff"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+          <path d="M20 2.6l13.4 7.74a4 4 0 012 3.46v12.4a4 4 0 01-2 3.46L20 37.4 6.6 29.66a4 4 0 01-2-3.46V13.8a4 4 0 012-3.46L20 2.6z" fill="url(#dg)"/>
+          <path d="M9.6 20.2h20.8" stroke="#fff" stroke-opacity=".22" stroke-width="1.4"/>
+          <path d="M13.4 20.8l4.3 4.3L27 14.9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Dovrin
       </a>
@@ -229,6 +244,7 @@
         <a href="#demo">See it work</a>
         <a href="#loop">How it works</a>
         <a href="#pillars">Governance</a>
+        <a href="#platforms">Platforms</a>
         <a href="#industries">Industries</a>
       </div>
       <div class="navcta">
@@ -455,6 +471,39 @@
   </div>
 </section>
 
+<!-- ERP AGNOSTIC -->
+<section id="platforms">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">One core, every ERP</div>
+      <h2>M3 is where we start — not where we stop.</h2>
+      <p>The governance is product-agnostic by design. The same gate, Consequence Preview, and tamper-evident audit ride on top of any Infor ERP's connector — M3 is the first adapter, not the foundation.</p>
+    </div>
+    <div class="erpgrid">
+      <div class="erpcard">
+        <span class="erpstat built">Built · offline</span>
+        <h3>Infor M3</h3>
+        <p>The first adapter. The full governed loop runs against M3 today on representative data — order-to-cash, procure-to-pay, and manufacturing.</p>
+      </div>
+      <div class="erpcard">
+        <span class="erpstat scoped">Adapter scoped</span>
+        <h3>Infor LN</h3>
+        <p>Rides the same ION OAuth backbone, so the governance core reuses directly. Connector researched and designed; live work awaits a partner tenant.</p>
+      </div>
+      <div class="erpcard">
+        <span class="erpstat road">On the roadmap</span>
+        <h3>CloudSuite Industrial <span style="font-weight:500;color:var(--faint);font-size:14px">(SyteLine)</span></h3>
+        <p>A different API model under the hood — the same trust layer on top. Sequenced after LN.</p>
+      </div>
+      <div class="erpcard">
+        <span class="erpstat core">By design</span>
+        <h3>Your ERP</h3>
+        <p>The gate, preview, and audit assume nothing about M3. Bring a connector; the governance comes with it — "&lt;ERP&gt; Agentic Solutions, powered by Dovrin."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- INDUSTRIES -->
 <section id="industries">
   <div class="wrap">
@@ -498,7 +547,7 @@
     <div class="foot-grid">
       <div class="foot-brand">
         <a class="logo" href="#top" style="font-size:19px">
-          <svg class="mark" viewBox="0 0 32 32" fill="none" style="width:28px;height:28px"><rect width="32" height="32" rx="9" fill="#2f5bff"/><path d="M11.5 16.2l3.1 3.1 6-6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="mark" viewBox="0 0 40 40" fill="none" style="width:28px;height:28px"><defs><linearGradient id="dg2" x1="6" y1="4" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b6bff"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><path d="M20 2.6l13.4 7.74a4 4 0 012 3.46v12.4a4 4 0 01-2 3.46L20 37.4 6.6 29.66a4 4 0 01-2-3.46V13.8a4 4 0 012-3.46L20 2.6z" fill="url(#dg2)"/><path d="M13.4 20.8l4.3 4.3L27 14.9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Dovrin
         </a>
         <p>The trust layer between AI and your ERP. Agentic AI for enterprise ERP — governed, verifiable, human-confirmed.</p>
