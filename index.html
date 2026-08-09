@@ -42,13 +42,17 @@
 
   /* ===== Nav ===== */
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.03em}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px;flex-wrap:nowrap}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.03em;flex:0 0 auto}
   .logo .mark{width:32px;height:32px;flex:0 0 auto}
-  .navlinks{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--muted)}
+  .navlinks{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--muted);flex:0 1 auto;white-space:nowrap}
+  .navlinks a{white-space:nowrap}
   .navlinks a:hover{color:var(--text)}
-  .navcta{display:flex;gap:10px;align-items:center}
-  @media(max-width:860px){.navlinks{display:none}.navcta .btn-ghost{display:none}}
+  .navcta{display:flex;gap:10px;align-items:center;flex:0 0 auto}
+  /* Primary nav is capped at 5 short links by design so this row never needs to
+     shrink below content size (see nav redesign note); breakpoint raised from
+     860->940 so links hide before the shrink-to-wrap collision with .logo can occur. */
+  @media(max-width:940px){.navlinks{display:none}}
 
   /* ===== Hero ===== */
   .hero{position:relative;overflow:hidden;background:var(--ink);color:#eaf0ff;padding:96px 0 110px}
@@ -268,17 +272,12 @@
       </a>
       <div class="navlinks">
         <a href="#problem">Why Dovrin</a>
-        <a href="#narrate">See it refuse</a>
-        <a href="#demo">See it work</a>
+        <a href="#narrate">See it work</a>
         <a href="#loop">How it works</a>
         <a href="#pillars">Governance</a>
         <a href="#platforms">Platforms</a>
-        <a href="#industries">Industries</a>
-        <a href="./sow-estimator.html">SOW Estimator</a>
-        <a href="./activation-tracker.html">Activation Tracker</a>
       </div>
       <div class="navcta">
-        <a class="btn btn-ghost btn-sm" href="#demo">Live demo</a>
         <a class="btn btn-primary btn-sm" href="#cta">Become a design partner</a>
       </div>
     </nav>
@@ -687,6 +686,7 @@
           <a href="#demo">Live demo</a>
           <a href="#loop">How it works</a>
           <a href="#pillars">Governance</a>
+          <a href="#platforms">Platforms</a>
           <a href="#industries">Industries</a>
         </div>
         <div class="foot-col">
@@ -700,6 +700,11 @@
           <a href="#">Truth Protocol</a>
           <a href="#">Security posture</a>
           <a href="#">EU AI Act</a>
+        </div>
+        <div class="foot-col">
+          <h5>Tools</h5>
+          <a href="./sow-estimator.html">SOW Estimator</a>
+          <a href="./activation-tracker.html">Activation Tracker</a>
         </div>
       </div>
     </div>
