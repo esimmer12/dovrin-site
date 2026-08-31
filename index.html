@@ -5,52 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- TEST RUN: keep search engines off the prototype. REMOVE this line at real launch on dovrin.com. -->
 <meta name="robots" content="noindex, nofollow" />
-<title>Dovrin: The trust layer between AI and your ERP</title>
+<title>Dovrin: the M3 AI that shows its receipts</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<meta name="description" content="Dovrin is the trust layer between AI and your ERP. It narrates enterprise data with full citations, refusing to guess when evidence is thin, and lets agents propose governed, human-confirmed writes to Infor M3, recorded in a tamper-evident audit. Design-partner ready, not yet generally available." />
+<meta name="description" content="Dovrin is the M3 AI that shows its receipts. It narrates enterprise data with full citations, refusing to guess when evidence is thin, and lets agents propose governed, human-confirmed writes to Infor M3, recorded in a tamper-evident audit. Built and CI-gated end to end; design-partner ready, not yet generally available." />
 <link rel="canonical" href="https://esimmer12.github.io/dovrin-site/" />
 <meta name="theme-color" content="#0a0e1a" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Dovrin" />
 <meta property="og:url" content="https://esimmer12.github.io/dovrin-site/" />
-<meta property="og:title" content="Dovrin: The trust layer between AI and your ERP" />
-<meta property="og:description" content="Dovrin narrates enterprise data with full citations, refusing to guess when evidence is thin, and lets agents propose governed, human-confirmed writes to Infor M3, recorded in a tamper-evident audit. Design-partner ready, not yet generally available." />
+<meta property="og:title" content="Dovrin: the M3 AI that shows its receipts" />
+<meta property="og:description" content="Dovrin narrates enterprise data with full citations, refusing to guess when evidence is thin, and lets agents propose governed, human-confirmed writes to Infor M3, recorded in a tamper-evident audit. Built and CI-gated end to end; design-partner ready, not yet generally available." />
 <!-- No 1200x630 OG raster exists yet; add og-image.png and an og:image tag as a follow-up. -->
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Dovrin: The trust layer between AI and your ERP" />
-<meta name="twitter:description" content="Dovrin narrates enterprise data with full citations, refusing to guess when evidence is thin, and lets agents propose governed, human-confirmed writes to Infor M3, recorded in a tamper-evident audit. Design-partner ready, not yet generally available." />
+<meta name="twitter:title" content="Dovrin: the M3 AI that shows its receipts" />
+<meta name="twitter:description" content="Dovrin narrates enterprise data with full citations, refusing to guess when evidence is thin, and lets agents propose governed, human-confirmed writes to Infor M3, recorded in a tamper-evident audit. Built and CI-gated end to end; design-partner ready, not yet generally available." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/tokens.css" />
 <style>
-  :root{
-    --ink:#0a0e1a; --ink-2:#111729; --ink-3:#1b2236;
-    --paper:#ffffff; --paper-2:#f6f8fc; --line:#e6eaf2;
-    --text:#0c1322; --muted:#5b6ava; --muted:#586079; --faint:#8a92a6;
-    --brand:#2f5bff; --brand-2:#1d43d8; --brand-soft:#eaf0ff;
-    --verify:#10b981; --verify-soft:#e8f8f1;
-    --warn:#f59e0b; --warn-soft:#fef3e2;
-    --crit:#ef4444; --crit-soft:#fdeceb;
-    --radius:16px; --radius-sm:10px;
-    --shadow:0 1px 2px rgba(12,19,34,.04),0 8px 30px rgba(12,19,34,.08);
-    --shadow-lg:0 24px 70px -20px rgba(12,19,34,.45);
-    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-    --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.55}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
-  h1,h2,h3{letter-spacing:-.02em;line-height:1.08;margin:0}
-  .btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:15px;padding:12px 20px;border-radius:999px;transition:.18s}
-  .btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 22px -8px rgba(47,91,255,.7)}
-  .btn-primary:hover{background:var(--brand-2);transform:translateY(-1px)}
-  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-  .btn-ghost:hover{background:var(--paper-2)}
-  .btn-sm{padding:9px 16px;font-size:14px}
-
   /* ===== Nav ===== */
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
   nav{display:flex;align-items:center;justify-content:space-between;height:68px;flex-wrap:nowrap}
@@ -264,6 +237,42 @@
   .erpstat.scoped{background:var(--brand-soft);color:#1d43d8}
   .erpstat.road{background:var(--warn-soft);color:#9a6207}
   .erpstat.core{background:#eef0f5;color:#475067}
+
+  /* ===== Products (Toolbox / Data Accelerator / lead magnets) ===== */
+  .prodgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;margin-top:46px}
+  @media(max-width:900px){.prodgrid{grid-template-columns:1fr}}
+  .prodcard{border:1px solid var(--line);border-radius:var(--radius);padding:32px;background:var(--paper);display:flex;flex-direction:column}
+  .prodcard.flagship{background:var(--ink);color:#eaf0ff;border-color:transparent;position:relative;overflow:hidden}
+  .prodcard.flagship::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(47,91,255,.35),transparent 60%)}
+  .prodcard.flagship *{position:relative;z-index:1}
+  .prodkick{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+  .prodcard.flagship .prodkick{color:#7ff0c4}
+  .prodcard h3{font-size:24px;font-weight:800;margin:10px 0 10px}
+  .prodcard p{margin:0 0 18px;font-size:15px;color:var(--muted)}
+  .prodcard.flagship p{color:#aeb8d4}
+  .prodcaps{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .prodcap{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:99px;background:var(--brand-soft);color:var(--brand-2)}
+  .prodcard.flagship .prodcap{background:rgba(255,255,255,.1);color:#cdd6ef}
+  .prodcard .btn{margin-top:auto;align-self:flex-start}
+  .leadgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+  @media(max-width:820px){.leadgrid{grid-template-columns:1fr}}
+  .leadcard{border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;background:var(--paper-2)}
+  .leadcard .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .leadcard h4{margin:8px 0 6px;font-size:16px;font-weight:700}
+  .leadcard p{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+  .leadcard a.btn{font-size:13px;padding:8px 14px}
+  .railnote{margin-top:20px;border-left:3px solid var(--faint-2);padding:2px 0 2px 16px;font-size:13.5px;color:var(--faint)}
+
+  /* ===== Three pillars (headline framing) ===== */
+  .pillars3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  @media(max-width:900px){.pillars3{grid-template-columns:1fr}}
+  .p3card{border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:var(--paper)}
+  .p3card .num{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--brand)}
+  .p3card h3{font-size:19px;font-weight:700;margin:10px 0 10px}
+  .p3card p{margin:0;color:var(--muted);font-size:14.5px}
+  .receipts{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+  .receipt{font-size:13px;color:var(--muted);display:flex;gap:9px}
+  .receipt b{color:var(--text);font-family:var(--mono);font-weight:700;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -282,10 +291,10 @@
         Dovrin
       </a>
       <div class="navlinks">
-        <a href="#problem">Why Dovrin</a>
-        <a href="#narrate">See it work</a>
-        <a href="#loop">How it works</a>
-        <a href="#pillars">Governance</a>
+        <a href="toolbox.html">Toolbox</a>
+        <a href="data-accelerator.html">Data Accelerator</a>
+        <a href="#pillars">Why Dovrin</a>
+        <a href="#products">Free tools</a>
         <a href="#platforms">Platforms</a>
       </div>
       <div class="navcta">
@@ -299,17 +308,17 @@
 <div class="hero" id="top">
   <div class="wrap">
     <span class="badge-live"><span class="dot"></span> Design-partner program now open</span>
-    <h1>The <span class="accent">trust layer</span> between AI and your ERP.</h1>
-    <p class="sub">Dovrin lets AI agents safely <em>act</em> inside Infor&nbsp;M3 — not just observe. Every action is grounded in verified data, previewed for its downstream consequences, confirmed by a human, and recorded in a tamper-evident audit.</p>
+    <h1>Dovrin: the M3 AI that <span class="accent">shows its receipts.</span></h1>
+    <p class="sub">Everyone at this conference will show you how many AI agents they can run against M3. Dovrin is the thing nobody else is talking about — how you know whether to believe them. Every claim is sourced or withheld, never guessed. Every write is human-confirmed before it touches your tenant. And when our own governance is broken, we say so, in writing, dated.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#demo">Watch a governed write &rarr;</a>
-      <a class="btn btn-ghost" href="#loop">How the gate works</a>
+      <a class="btn btn-ghost" href="#pillars">See the receipts</a>
     </div>
     <div class="trustbar">
       <span>Built for <b>Infor M3 CloudSuite</b></span><span class="sep"></span>
       <span>Tenant- &amp; ERP-<b>agnostic core</b></span><span class="sep"></span>
       <span><b>Truth Protocol</b> — every claim source-tagged</span><span class="sep"></span>
-      <span>Designed to a <b>SOC 2 / EU AI Act</b> posture</span>
+      <span>Own failures <b>published, dated, fixed</b></span>
     </div>
   </div>
 </div>
@@ -573,7 +582,34 @@
     <div class="section-head">
       <div class="eyebrow">Why it's trustworthy</div>
       <h2>Governance isn't a feature. It's the foundation.</h2>
-      <p>Most AI tools bolt on guardrails. Dovrin is built inside-out from a single rule: never assert what you can't verify, and never act without a human.</p>
+      <p>Most AI tools bolt on guardrails. Dovrin is built inside-out from three rules — and unlike a deck, two of them come with a dated receipt.</p>
+    </div>
+
+    <div class="pillars3">
+      <div class="p3card">
+        <div class="num">Pillar 01</div>
+        <h3>Every claim is sourced, or it's withheld. Never guessed.</h3>
+        <p>Source tiers are enforced in code, not asserted in a deck — seven tiers from live-tenant confidence down to <code style="font-family:var(--mono);font-size:13px">UNVERIFIED</code>, which is a hard stop. The answer is withheld, not degraded. The same discipline runs in the free H5 Scripting Kit, which tags every claim <code style="font-family:var(--mono);font-size:13px">[VERIFIED]</code> or <code style="font-family:var(--mono);font-size:13px">[CONFIRM ON TENANT]</code>.</p>
+      </div>
+      <div class="p3card">
+        <div class="num">Pillar 02</div>
+        <h3>Every write is human-reviewed before it touches your tenant, with a record that can't be quietly edited.</h3>
+        <p>A draft is created carrying no token; a human approves at a dedicated confirm surface, which mints a one-time token server-side — an agent can never self-confirm because it never holds one. Consequence Preview shows the downstream impact first, so the human approves an outcome, not a field diff. The result lands in a tamper-evident, hash-chained ledger.</p>
+      </div>
+      <div class="p3card">
+        <div class="num">Pillar 03</div>
+        <h3>When our own governance is broken, we say so — in writing, dated, before a customer finds it.</h3>
+        <p>The pillar competitors can't copy with better marketing, because it requires publishing your own failures.</p>
+        <div class="receipts">
+          <div class="receipt"><b>2026-06-10</b> A commissioned adversarial audit found the write gate's advertised "triple lock" was, as wired by default, a double lock. Found offline, before any tenant. The standard's own changelog now states 2 of 3 locks are enforced and the third is deliberately <code style="font-family:var(--mono);font-size:12px">NOT_ENFORCED</code> and loud — a required literal with no silent permissive default.</div>
+          <div class="receipt"><b>2026-08-30</b> A triple-pass verification of the whole portfolio found the first pass had undercounted its own test suite by roughly 13%, and caught a deterministic CI failure on <code style="font-family:var(--mono);font-size:12px">main</code> no prior build had surfaced. Fixed the same day; suite green.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:64px">
+      <div class="eyebrow">How the pillars are enforced</div>
+      <h2 style="font-size:clamp(24px,3vw,32px)">The mechanics behind the three rules.</h2>
     </div>
     <div class="pillars">
       <div class="pill-card">
@@ -605,6 +641,68 @@
         <div class="pill-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8" stroke="#2f5bff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
         <h3>Powered-by model</h3>
         <p>Dovrin is the engine inside your ERP automation — "&lt;ERP&gt; Agentic Solutions, powered by Dovrin." Your workflows, our governance underneath.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The lineup</div>
+      <h2>Two products. One discipline.</h2>
+      <p>Not seven SKUs — a flagship you open every day, the migration accelerator that proved the discipline first, and a set of free tools that show the same craft before anyone talks to sales.</p>
+    </div>
+    <div class="prodgrid">
+      <div class="prodcard flagship">
+        <div class="prodkick">Flagship · the hero</div>
+        <h3>Dovrin Toolbox</h3>
+        <p>A daily-use dashboard for any M3 ERP product — ticketing integrations, working ION API knowledge, and AI, with Consequence Preview and grounded narration built in. This is "M3 Agentic Solutions — powered by Dovrin."</p>
+        <div class="prodcaps">
+          <span class="prodcap">Narrate — cited briefs</span>
+          <span class="prodcap">Consequence Preview</span>
+          <span class="prodcap">Human-confirmed writes</span>
+        </div>
+        <a class="btn btn-primary" href="toolbox.html">See the Toolbox &rarr;</a>
+      </div>
+      <div class="prodcard">
+        <div class="prodkick">Second product · the receipts, shown early</div>
+        <h3>Dovrin Data Accelerator</h3>
+        <p>Synthetic-tenant generation and governed load for CSD/CSDE migrations — the most mature build in the portfolio, replay-gated end to end. Migration is a project, not a daily habit, but it's the fastest way to see the rigor before trusting the Toolbox.</p>
+        <div class="prodcaps">
+          <span class="prodcap">Synthetic-tenant fleet</span>
+          <span class="prodcap">Migration corridor</span>
+          <span class="prodcap">Replay-gated CI</span>
+        </div>
+        <a class="btn btn-ghost" href="data-accelerator.html">See the Accelerator &rarr;</a>
+      </div>
+    </div>
+    <div class="railnote">The governed rail underneath both products — containerized create → rehearse → verify, with a tamper-evident hash-chained audit — is built and gated (173 tests, image-gated) but wired to a mock adapter only. It's cited here as why the audit trail is credible, not pitched as a separate product; live-tenant wiring is the next milestone.</div>
+
+    <div class="section-head" style="margin-top:64px">
+      <div class="eyebrow">Free, on the site</div>
+      <h2 style="font-size:clamp(24px,3vw,32px)">Not ready to talk to sales? Start here.</h2>
+      <p>Small, single-purpose tools — low commitment, same craft-signal as the flagship.</p>
+    </div>
+    <div class="leadgrid">
+      <div class="leadcard">
+        <div class="k">Lead magnet</div>
+        <h4>SOW Cost Estimator</h4>
+        <p>A live SOW cost, price, and margin estimator with hard margin-floor guardrails and versioned rate cards.</p>
+        <a class="btn btn-ghost" href="sow-estimator.html">Try it &rarr;</a>
+      </div>
+      <div class="leadcard">
+        <div class="k">Lead magnet</div>
+        <h4>M3 Activation Tracker</h4>
+        <p>A repeatable, engagement-agnostic go-live playbook for CSDE — two parallel tracks, gated phases, live progress.</p>
+        <a class="btn btn-ghost" href="activation-tracker.html">Try it &rarr;</a>
+      </div>
+      <div class="leadcard">
+        <div class="k">Lead magnet</div>
+        <h4>H5 Scripting Kit</h4>
+        <p>A practitioner kit for M3 H5 panel scripting — starter recipes and docs, every claim tagged verified or confirm-on-tenant.</p>
+        <a class="btn btn-ghost" href="h5-scripting-kit.html">See the kit &rarr;</a>
       </div>
     </div>
   </div>
@@ -689,33 +787,32 @@
           <svg class="mark" viewBox="0 0 40 40" fill="none" style="width:28px;height:28px"><defs><linearGradient id="dg2" x1="6" y1="4" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b6bff"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><path d="M20 2.6l13.4 7.74a4 4 0 012 3.46v12.4a4 4 0 01-2 3.46L20 37.4 6.6 29.66a4 4 0 01-2-3.46V13.8a4 4 0 012-3.46L20 2.6z" fill="url(#dg2)"/><path d="M13.4 20.8l4.3 4.3L27 14.9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Dovrin
         </a>
-        <p>The trust layer between AI and your ERP. Agentic AI for enterprise ERP — governed, verifiable, human-confirmed.</p>
+        <p>The M3 AI that shows its receipts. Agentic AI for enterprise ERP — governed, verifiable, human-confirmed.</p>
       </div>
       <div class="foot-cols">
         <div class="foot-col">
-          <h5>Product</h5>
-          <a href="#demo">Live demo</a>
+          <h5>Products</h5>
+          <a href="toolbox.html">Dovrin Toolbox</a>
+          <a href="data-accelerator.html">Data Accelerator</a>
           <a href="#loop">How it works</a>
-          <a href="#pillars">Governance</a>
           <a href="#platforms">Platforms</a>
-          <a href="#industries">Industries</a>
         </div>
         <div class="foot-col">
           <h5>Company</h5>
-          <a href="#">About</a>
+          <a href="#top">About</a>
           <a href="#cta">Design partners</a>
-          <a href="#">Contact</a>
+          <a href="mailto:esimmer12@hotmail.com">Contact</a>
         </div>
         <div class="foot-col">
           <h5>Trust</h5>
-          <a href="#">Truth Protocol</a>
-          <a href="#">Security posture</a>
-          <a href="#">EU AI Act</a>
+          <a href="#pillars">The three pillars</a>
+          <a href="#pillars">Dated proof points</a>
         </div>
         <div class="foot-col">
-          <h5>Tools</h5>
-          <a href="./sow-estimator.html">SOW Estimator</a>
-          <a href="./activation-tracker.html">Activation Tracker</a>
+          <h5>Free tools</h5>
+          <a href="sow-estimator.html">SOW Estimator</a>
+          <a href="activation-tracker.html">Activation Tracker</a>
+          <a href="h5-scripting-kit.html">H5 Scripting Kit</a>
         </div>
       </div>
     </div>

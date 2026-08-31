@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- TEST RUN: keep search engines off the prototype. REMOVE this line at real launch on dovrin.com. -->
 <meta name="robots" content="noindex, nofollow" />
-<title>SOW Estimator — What we build, by Dovrin</title>
+<title>Dovrin Data Accelerator — synthetic-tenant migration, by Dovrin</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<meta name="description" content="A live SOW cost, price, and margin estimator — one example of what Dovrin builds. Guardrails that flag any deal below its margin floor, versioned rate cards, and client-safe exports, accurate to the cent." />
+<meta name="description" content="Dovrin Data Accelerator: synthetic-tenant generation and governed load for CSD/CSDE migrations. Replay-gated in CI, with a live demo of the fleet, the migration corridor, and the refusals it never drops." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -23,7 +23,7 @@
   .navcta{display:flex;gap:10px;align-items:center}
   @media(max-width:860px){.navlinks{display:none}.navcta .btn-ghost{display:none}}
 
-  /* ===== Hero (page-local, lighter than home) ===== */
+  /* ===== Hero ===== */
   .hero{position:relative;overflow:hidden;background:var(--ink);color:#eaf0ff;padding:86px 0 96px}
   .hero::before{content:"";position:absolute;inset:0;background:
     radial-gradient(900px 420px at 80% -10%,rgba(47,91,255,.30),transparent 60%),
@@ -35,13 +35,16 @@
   .badge-live{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:#7ff0c4;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--verify);box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:pulse 2s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.55)}70%{box-shadow:0 0 0 9px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
-  .hero h1{font-size:clamp(34px,5.4vw,58px);font-weight:800;max-width:18ch;margin:22px 0 0}
+  .hero h1{font-size:clamp(32px,5vw,52px);font-weight:800;max-width:20ch;margin:22px 0 0}
   .hero h1 .accent{background:linear-gradient(90deg,#6f93ff,#34d8a0);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p.sub{font-size:clamp(17px,2.1vw,20px);color:#aeb8d4;max-width:62ch;margin:20px 0 0}
+  .hero p.sub{font-size:clamp(17px,2.1vw,20px);color:#aeb8d4;max-width:64ch;margin:20px 0 0}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;align-items:center}
   .hero .btn-ghost{color:#eaf0ff;border-color:rgba(255,255,255,.2)}
   .hero .btn-ghost:hover{background:rgba(255,255,255,.06)}
   .hero-note{margin-top:16px;font-size:13px;color:#8893b5}
+  .trustbar{display:flex;flex-wrap:wrap;gap:14px 30px;align-items:center;margin-top:44px;color:#8893b5;font-size:13.5px;font-weight:500}
+  .trustbar b{color:#cdd6ef;font-weight:600}
+  .trustbar .sep{width:1px;height:16px;background:rgba(255,255,255,.14)}
 
   /* ===== Section scaffolding ===== */
   section{padding:80px 0}
@@ -73,8 +76,11 @@
   .appbar .open{font-size:13px;font-weight:600;color:#9db4ff;display:inline-flex;align-items:center;gap:6px}
   .appbar .open:hover{color:#fff}
   .frame-wrap{position:relative;background:#0c122a}
-  iframe.livepreview{display:block;width:100%;min-height:640px;border:0;background:#fff}
+  iframe.livepreview{display:block;width:100%;min-height:760px;border:0;background:#13120f}
   .demo-foot{margin-top:18px;font-size:13px;color:#7a86ad;display:flex;align-items:center;gap:8px;justify-content:center}
+
+  /* ===== Rail note ===== */
+  .railnote{margin-top:20px;border-left:3px solid var(--faint-2);padding:2px 0 2px 16px;font-size:13.5px;color:var(--faint)}
 
   /* ===== CTA ===== */
   .cta{background:var(--ink);color:#eaf0ff;border-radius:24px;padding:56px;text-align:center;position:relative;overflow:hidden}
@@ -114,13 +120,12 @@
       </a>
       <div class="navlinks">
         <a href="toolbox.html">Toolbox</a>
-        <a href="data-accelerator.html">Data Accelerator</a>
         <a href="index.html#pillars">Why Dovrin</a>
         <a href="index.html#products">Free tools</a>
       </div>
       <div class="navcta">
         <a class="btn btn-ghost btn-sm" href="index.html#top">&larr; Back to Dovrin</a>
-        <a class="btn btn-primary btn-sm" href="./swet/">Launch demo</a>
+        <a class="btn btn-primary btn-sm" href="#demo">See the live demo</a>
       </div>
     </nav>
   </div>
@@ -129,14 +134,18 @@
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="badge-live"><span class="dot"></span> Live capability &middot; built &amp; deployed</span>
-    <h1>What we build — a live <span class="accent">SOW cost &amp; margin estimator</span>.</h1>
-    <p class="sub">One example from the Dovrin portfolio: a real, working tool that prices a statement of work line by line — cost, price, and margin, recalculated on every keystroke, with hard guardrails before anything ships to a client.</p>
+    <span class="badge-live"><span class="dot"></span> Most mature build in the portfolio</span>
+    <h1>Dovrin Data Accelerator — the <span class="accent">receipts, shown early.</span></h1>
+    <p class="sub">Synthetic-tenant generation and governed load for CSD/CSDE migrations. Migration is a project, not a daily habit — so it isn't the flagship — but it's the fastest way to see the discipline before trusting the <a href="toolbox.html" style="color:#9db4ff;text-decoration:underline">Dovrin Toolbox</a> with your day-to-day work.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="./swet/">Launch the live demo &rarr;</a>
+      <a class="btn btn-primary" href="#demo">Open the live demo &rarr;</a>
       <a class="btn btn-ghost" href="#capabilities">What it actually does</a>
     </div>
-    <div class="hero-note">Opens best in Microsoft Edge — the demo includes a natural narration voice tuned for Edge's speech engine.</div>
+    <div class="trustbar">
+      <span>Replay-gated in <b>CI</b></span><span class="sep"></span>
+      <span>Every refusal <b>typed, drillable, never dropped</b></span><span class="sep"></span>
+      <span>KPIs <b>never averaged across tenants</b></span>
+    </div>
   </div>
 </div>
 
@@ -145,36 +154,42 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">What it does</div>
-      <h2>Not a mockup — a working estimator with real guardrails.</h2>
-      <p>This is the kind of tool Dovrin builds: small in scope, exact in its numbers, and honest about the line it won't let you cross.</p>
+      <h2>A synthetic fleet, a migration corridor, and a runtime that won't guess.</h2>
+      <p>The demo below is the actual build — a fleet of synthetic tenants, a golden dataset with real money-story figures, a CSD&nbsp;&rarr;&nbsp;CSDE migration corridor, and a governed narration runtime that refuses rather than estimates.</p>
     </div>
     <div class="caps">
       <div class="cap-card">
+        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="7" height="7" rx="1.5" stroke="#2f5bff" stroke-width="1.8"/><rect x="14" y="4" width="7" height="7" rx="1.5" stroke="#2f5bff" stroke-width="1.8"/><rect x="3" y="15" width="7" height="7" rx="1.5" stroke="#2f5bff" stroke-width="1.8"/><rect x="14" y="15" width="7" height="7" rx="1.5" stroke="#2f5bff" stroke-width="1.8"/></svg></div>
+        <h3>Synthetic-tenant fleet</h3>
+        <p>Four synthetic tenants and a read-only PE rollup fold. Per-tenant KPIs are kept per-tenant — never averaged across tenants, so a rollup can't quietly launder a bad number into a good one.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Golden dataset</h3>
+        <p>Org &amp; master data, customers, vendors, per-warehouse items, and transactions — with realized gross margin by family, so the migration is proven against a real money story, not placeholder rows.</p>
+      </div>
+      <div class="cap-card">
         <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#2f5bff" stroke-width="1.8"/></svg></div>
-        <h3>Live on every keystroke</h3>
-        <p>Cost, price, and margin recalculate as line items change — no "run the report" step, no stale numbers while a deal is being shaped.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 3.9L2 18a2 2 0 001.7 3h16.6A2 2 0 0022 18L13.7 3.9a2 2 0 00-3.4 0z" stroke="#2f5bff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-        <h3>Hard margin-floor guardrails</h3>
-        <p>Any deal that drops below its margin floor is flagged immediately. A hard STOP blocks sign-off outright — it won't quietly let a bad deal through.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round"/><circle cx="19" cy="17" r="2.4" stroke="#2f5bff" stroke-width="1.6"/></svg></div>
-        <h3>Versioned rate cards</h3>
-        <p>Rate cards are versioned, not overwritten. A past estimate never silently restates itself when rates change later — every quote stays pinned to what it was built on.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#2f5bff" stroke-width="1.8"/><path d="M3 9h18M8 4v16" stroke="#2f5bff" stroke-width="1.6"/></svg></div>
-        <h3>Client-safe vs. internal exports</h3>
-        <p>One export strips cost and margin for the client's eyes; the other keeps the full internal breakdown. The same estimate, two honest views.</p>
+        <h3>Migration corridor</h3>
+        <p>A CSD&nbsp;&rarr;&nbsp;CSDE rehearsal with record counts, refusals broken out by class, and cutover gates — every refusal is typed and drillable, never dropped and never best-matched to something close.</p>
       </div>
       <div class="cap-card">
         <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m-3-7l8 4v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V7l8-4z" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Accurate to the cent</h3>
-        <p>Every total is checked against the source pricing model — no rounding drift, no "close enough." If the model says a number, the estimator matches it exactly.</p>
+        <h3>Governed runtime</h3>
+        <p>Closed-template, deterministic narration on both CSD and CSDE tenants — the same withhold-don't-guess discipline that governs the Toolbox, proven first here.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2" stroke="#2f5bff" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#2f5bff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Consolidation feed</h3>
+        <p>A combined answer card with a basis-of-preparation legend, a derivation tuple, and full feed provenance back to the fleet tenants behind it — plus a structured UNMAPPED bucket instead of a silent bare sum.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 3.9L2 18a2 2 0 001.7 3h16.6A2 2 0 0022 18L13.7 3.9a2 2 0 00-3.4 0z" stroke="#2f5bff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Honest refusals</h3>
+        <p>Two refusal scenarios are demoed on purpose — a P&amp;L translation request out of scope, and a distribution feed that's unreachable. Both refuse in writing instead of guessing.</p>
       </div>
     </div>
+    <div class="railnote">Replay-gated: the dataset and the migration corridor run under fail-closed CI, alongside the scrub and image gates. This is one of only three components in the portfolio release-gated that way today.</div>
   </div>
 </section>
 
@@ -182,25 +197,25 @@
 <section class="demo" id="demo">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow" style="color:#7ff0c4">Try it live</div>
-      <h2>The real app, embedded below.</h2>
-      <p>This is the actual estimator running at <code style="font-family:var(--mono)">/swet/</code> — not a screenshot. Use the button to open it full-page, or try it inline.</p>
+      <div class="eyebrow" style="color:#7ff0c4">See it work</div>
+      <h2>The real build, embedded below.</h2>
+      <p>This is the actual accelerator output — fleet, golden dataset, migration corridor, consolidation feed, and governed runtime — not a screenshot. Use the button to open it full-page, or scroll through it inline.</p>
     </div>
 
     <div class="appwin">
       <div class="appbar">
         <div class="appbar-left">
           <div class="lights"><i></i><i></i><i></i></div>
-          <div class="title">SWET &nbsp;·&nbsp; <b>SOW Cost Estimator</b></div>
+          <div class="title">Dovrin &nbsp;·&nbsp; <b>Data Accelerator</b> &nbsp;·&nbsp; fleet / corridor / runtime</div>
         </div>
-        <a class="open" href="./swet/" target="_blank" rel="noopener">Open full-page &#8599;</a>
+        <a class="open" href="demos/dist-accelerator-demo.html" target="_blank" rel="noopener">Open full-page &#8599;</a>
       </div>
       <div class="frame-wrap">
-        <iframe class="livepreview" src="./swet/" title="Live SOW Cost Estimator" loading="lazy"></iframe>
+        <iframe class="livepreview" src="demos/dist-accelerator-demo.html" title="Dovrin Data Accelerator live demo" loading="lazy"></iframe>
       </div>
     </div>
     <div class="demo-foot">
-      Full app, same origin &middot; nothing here is a recording
+      Full build, same origin &middot; representative synthetic data, not a live tenant
     </div>
   </div>
 </section>
@@ -210,16 +225,16 @@
   <div class="wrap">
     <div class="cta">
       <div class="wrap2">
-        <div class="eyebrow" style="color:#7ff0c4">Portfolio piece</div>
-        <h2>This is the kind of thing Dovrin builds.</h2>
-        <p>Small, exact, and governed by rules that don't bend under deal pressure — the same discipline behind the governed-write engine for M3.</p>
+        <div class="eyebrow" style="color:#7ff0c4">Migration leads &amp; SIs</div>
+        <h2>See the discipline before you trust it on your cutover.</h2>
+        <p>Bring your CSD tenant and your CSDE target; we bring the synthetic fleet, the rehearsal corridor, and the same governed-refusal discipline that runs the Toolbox.</p>
         <div class="hero-cta" style="justify-content:center">
-          <a class="btn btn-primary" href="./swet/">Launch the live demo &rarr;</a>
+          <a class="btn btn-primary" href="index.html#cta">Request design-partner access</a>
           <a class="btn btn-ghost" href="index.html#top">Back to Dovrin</a>
         </div>
         <div class="disclaimer" style="margin-top:24px">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 3.9L2 18a2 2 0 001.7 3h16.6A2 2 0 0022 18L13.7 3.9a2 2 0 00-3.4 0z" stroke="#9a6207" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          Honest status: opens best in Microsoft Edge (the narration voice is tuned for Edge's speech engine). The rate card shown in the demo is sample / placeholder data, not a real Dovrin price list.
+          Honest status: built and CI-gated end to end on a synthetic fleet. No live tenant has run through it yet — that's exactly what the design-partner program is for.
         </div>
       </div>
     </div>

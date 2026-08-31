@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- TEST RUN: keep search engines off the prototype. REMOVE this line at real launch on dovrin.com. -->
+<meta name="robots" content="noindex, nofollow" />
+<title>H5 Scripting Kit — a free practitioner kit, by Dovrin</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="description" content="A free, tenant-agnostic practitioner kit for Infor M3 H5 panel scripting — starter recipes, a standup reference, and a governed co-pilot substrate. Every claim tagged verified or confirm-on-tenant." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/tokens.css" />
+<style>
+  /* ===== Nav ===== */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.03em}
+  .logo .mark{width:32px;height:32px;flex:0 0 auto}
+  .navlinks{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--muted)}
+  .navlinks a:hover{color:var(--text)}
+  .navcta{display:flex;gap:10px;align-items:center}
+  @media(max-width:860px){.navlinks{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;overflow:hidden;background:var(--ink);color:#eaf0ff;padding:80px 0 88px}
+  .hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(900px 420px at 80% -10%,rgba(47,91,255,.30),transparent 60%),
+    radial-gradient(700px 360px at 0% 110%,rgba(16,185,129,.16),transparent 60%);}
+  .hero .wrap{position:relative;z-index:1}
+  .badge-live{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:#7ff0c4;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px}
+  .hero h1{font-size:clamp(30px,4.6vw,46px);font-weight:800;max-width:20ch;margin:20px 0 0}
+  .hero p.sub{font-size:clamp(16px,2vw,19px);color:#aeb8d4;max-width:64ch;margin:18px 0 0}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;align-items:center}
+  .hero .btn-ghost{color:#eaf0ff;border-color:rgba(255,255,255,.2)}
+  .hero .btn-ghost:hover{background:rgba(255,255,255,.06)}
+
+  section{padding:70px 0}
+  .section-head{max-width:720px}
+  .section-head h2{font-size:clamp(24px,3vw,34px);font-weight:800;margin-top:14px}
+  .section-head p{font-size:16.5px;color:var(--muted);margin-top:14px}
+
+  .kititems{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+  @media(max-width:760px){.kititems{grid-template-columns:1fr}}
+  .kititem{border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;background:var(--paper)}
+  .kititem h4{margin:0 0 6px;font-size:15px;font-weight:700}
+  .kititem p{margin:0;color:var(--muted);font-size:13.5px}
+
+  .tagrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+  .tag{font-family:var(--mono);font-size:12px;font-weight:600;padding:5px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+  .tag.verified{color:#0a7a55;background:var(--verify-soft);border-color:transparent}
+  .tag.confirm{color:#9a6207;background:var(--warn-soft);border-color:transparent}
+
+  .getbox{margin-top:44px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper-2);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .getbox h3{margin:0 0 8px;font-size:19px}
+  .getbox p{margin:0;color:var(--muted);font-size:14.5px;max-width:52ch}
+
+  footer{border-top:1px solid var(--line);padding:44px 0 40px;margin-top:60px;color:var(--faint);font-size:13.5px;text-align:center}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="index.html#top">
+        <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="dg" x1="6" y1="4" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b6bff"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+          <path d="M20 2.6l13.4 7.74a4 4 0 012 3.46v12.4a4 4 0 01-2 3.46L20 37.4 6.6 29.66a4 4 0 01-2-3.46V13.8a4 4 0 012-3.46L20 2.6z" fill="url(#dg)"/>
+          <path d="M9.6 20.2h20.8" stroke="#fff" stroke-opacity=".22" stroke-width="1.4"/>
+          <path d="M13.4 20.8l4.3 4.3L27 14.9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Dovrin
+      </a>
+      <div class="navlinks">
+        <a href="toolbox.html">Toolbox</a>
+        <a href="data-accelerator.html">Data Accelerator</a>
+        <a href="index.html#products">Free tools</a>
+      </div>
+      <div class="navcta">
+        <a class="btn btn-ghost btn-sm" href="index.html#top">&larr; Back to Dovrin</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <span class="badge-live">Free &middot; lead magnet &middot; proof of craft</span>
+    <h1>The H5 Scripting Kit</h1>
+    <p class="sub">A free, tenant-agnostic practitioner kit for Infor M3 H5 panel scripting: the customization ladder, a verified MForms/H5 API contract, starter recipes, a deploy/debug/rollback runbook, and a governed co-pilot substrate you can run offline. Small in scope, honest about what it can and can't confirm — the same discipline that governs the Toolbox, visible in a free artifact anyone can check before talking to sales.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:esimmer12@hotmail.com?subject=H5%20Scripting%20Kit">Request the kit &rarr;</a>
+      <a class="btn btn-ghost" href="index.html#products">Back to free tools</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S INSIDE -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What's inside</div>
+      <h2>Docs, recipes, and a runnable offline demo — not a slide deck.</h2>
+      <p>The kit is a standalone practitioner reference plus a small TypeScript monorepo. It carries no proprietary, employer, or third-party code or data.</p>
+    </div>
+    <div class="kititems">
+      <div class="kititem">
+        <h4>Standup reference</h4>
+        <p>The customization ladder (when <em>not</em> to script), the verified MForms/H5 API contract, annotated starter recipes, and the deploy/debug/rollback runbook.</p>
+      </div>
+      <div class="kititem">
+        <h4>12 starter panel scripts</h4>
+        <p>Ready-to-adapt recipes — auto-fill, credit-hold gate, add-button, MI lookup, conditional field, grid logic, hotkey, drillback, on-load insight, and more.</p>
+      </div>
+      <div class="kititem">
+        <h4>Live-tenant hookup playbook</h4>
+        <p>Create the Authorized App + Service Account, wire the <code style="font-family:var(--mono);font-size:13px">.ionapi</code>, prove the connection, and a troubleshooting matrix for when it doesn't connect first try.</p>
+      </div>
+      <div class="kititem">
+        <h4>Governed co-pilot substrate</h4>
+        <p>A runnable, fully-offline demo of the propose &rarr; different-human-confirms &rarr; execute flow — no tenant and no API key required to try it.</p>
+      </div>
+    </div>
+    <div class="tagrow">
+      <span class="tag verified">[VERIFIED — Infor docs]</span>
+      <span class="tag confirm">[CONFIRM ON TENANT]</span>
+      <span class="tag">no proprietary or client data</span>
+      <span class="tag">MIT license</span>
+    </div>
+
+    <div class="getbox">
+      <div>
+        <h3>Not published as a download yet</h3>
+        <p>The kit is finished and MIT-licensed. The re-skin for a public download page is a pre-launch task — email and we'll send it directly.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:esimmer12@hotmail.com?subject=H5%20Scripting%20Kit">Email for the kit &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Dovrin — the M3 AI that shows its receipts. &middot;
+    <a href="index.html#top">Home</a> &middot;
+    <a href="toolbox.html">Toolbox</a> &middot;
+    <a href="data-accelerator.html">Data Accelerator</a> &middot;
+    <a href="sow-estimator.html">SOW Estimator</a> &middot;
+    <a href="activation-tracker.html">Activation Tracker</a>
+  </div>
+</footer>
+
+</body>
+</html>
