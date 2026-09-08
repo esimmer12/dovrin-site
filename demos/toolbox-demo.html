@@ -147,6 +147,18 @@
   .tab.active{color:#fff;background:var(--brand-soft);border-color:var(--brand)}
   .lens{display:none}.lens.active{display:block}
   .claim{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12.5px;align-items:flex-start}.claim:last-child{border-bottom:0}
+  .exec{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:15px}
+  .exec .eh{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.02em}
+  .exec .es{font-size:12.5px;color:var(--muted);margin-top:5px}
+  .exec .top{margin:11px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:12.5px}
+  .exec .top .rk{font-family:var(--mono);color:var(--brand-2);font-weight:700;margin-right:6px}
+  .finding{border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:10px;background:var(--panel)}
+  .f-head{font-family:var(--mono);font-size:12px;font-weight:700;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .f-amt{color:var(--verify)}.f-conf{color:var(--faint);font-weight:400}.f-agent{margin-left:auto;color:var(--faint);font-family:var(--sans);font-weight:600;font-size:11px}
+  .f-body{font-size:12.5px;color:var(--text);margin:8px 0}
+  .f-ev{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+  .f-next{font-size:12px;color:var(--brand-2);font-weight:600;margin-top:8px}
+  .gov-foot{font-size:11.5px;color:var(--faint);border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
   .rcpt{display:flex;gap:11px;font-size:12.5px;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--line)}.rcpt:last-child{border-bottom:0}.rcpt b{color:var(--text);font-family:var(--mono);white-space:nowrap}
   .foot{color:var(--faint);font-size:11.5px;margin-top:28px;border-top:1px solid var(--line);padding-top:13px}
   .ledger{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
@@ -445,18 +457,57 @@
     <section class="panel" id="narrate">
       <h2 class="ph">Narrate</h2>
       <p class="pd">Deterministic narration over validated findings — the same facts produce byte-identical output. Every dollar is a finding's own amount, every count a real row count. Any evidence reference that doesn't resolve is dropped and tallied, never narrated. Two lenses, same facts.</p>
+      <div class="exec">
+        <div class="eh">EXECUTIVE BRIEFING — Dovrin governed-AI runtime</div>
+        <div class="es">7 proposed findings across 5 agents · 2 critical · 3 high · 2 medium · <b style="color:var(--verify)">$439.5k</b> quantified across the book</div>
+        <ul class="top">
+          <li><span class="rk">#1</span> Procurement Exception — supplier bank-change exposure <b class="f-amt">$214,500</b></li>
+          <li><span class="rk">#2</span> AR Cash Acceleration — aged receivables concentration <b class="f-amt">$184,000</b></li>
+          <li><span class="rk">#3</span> AR Cash Acceleration — credit-hold backlog releasable <b class="f-amt">$41,000</b></li>
+        </ul>
+      </div>
       <div class="tabs"><button class="tab active" data-lens="cfo">CFO lens</button><button class="tab" data-lens="ops">Operations lens</button></div>
       <div class="lens active" id="lens-cfo">
-        <div class="claim"><span class="src">GL · posted</span> Gross margin held at <b>31.2%</b> for the period, flat versus the trailing quarter.</div>
-        <div class="claim"><span class="src lk">ARS · aging</span> Receivables over 60 days rose to <b>$184k</b>, concentrated in two accounts.</div>
-        <div class="claim"><span class="src">CRS610 · credit</span> One customer (C-1088) is over its credit limit, gating <b>$41k</b> of open orders.</div>
-        <div class="withhold">Withheld: a forecast of next period's margin — no forward data source is readable, so no number is offered. <span class="note">(1 unresolved ref dropped, not narrated)</span></div>
+        <div class="finding">
+          <div class="f-head"><span class="sv crit">CRITICAL</span> credit-hold backlog releasable <span class="f-amt">[$41,000]</span> <span class="f-conf">(confidence 0.98)</span><span class="f-agent">AR Cash Acceleration · lever: cash-flow</span></div>
+          <div class="f-body">Two sales orders sit on credit hold for a customer now flagged over its limit; clearing the limit review makes the backlog releasable.</div>
+          <ul class="f-ev"><li>• OIS300MI.LstHead:HOLD=1 (2 rows) — held sales orders, $29,000 + $12,000</li><li>• CRS610MI.GetFinancial:C-1088 (1 row) — limit 50,000, balance 62,400</li></ul>
+          <div class="f-next">PROPOSED NEXT STEP → draft a credit-limit review for C-1088 (routes to Approvals; never auto-executed)</div>
+        </div>
+        <div class="finding">
+          <div class="f-head"><span class="sv warn">HIGH</span> aged receivables concentration <span class="f-amt">[$184,000]</span> <span class="f-conf">(confidence 0.95)</span><span class="f-agent">AR Cash Acceleration · lever: cash-flow predictability</span></div>
+          <div class="f-body">Receivables over 60 days rose to $184,000, concentrated in two accounts.</div>
+          <ul class="f-ev"><li>• ARS200MI.LstInvoices:AGED&gt;60 (3 rows) — INV5501 (74d), INV5588 (64d), INV5602 (61d)</li></ul>
+          <div class="f-next">PROPOSED NEXT STEP → prioritize collection on the two &gt;60-day accounts before extending terms</div>
+        </div>
+        <div class="finding">
+          <div class="f-head"><span class="sv warn">HIGH</span> supplier bank-change exposure <span class="f-amt">[$214,500]</span> <span class="f-conf">(confidence 0.92)</span><span class="f-agent">Procurement Exception · lever: cash-flow + margin</span></div>
+          <div class="f-body">A pending supplier bank change would direct open payables to a new account; a payment proposal is queued.</div>
+          <ul class="f-ev"><li>• APS200MI.LstInvoices:V-2044 (2 rows) — $200,000 + $14,500 open</li><li>• APS130MI.LstProposals:V-2044 (1 row) — PP-3001 pending release</li></ul>
+          <div class="f-next">PROPOSED NEXT STEP → verify the V-2044 bank change out-of-band before releasing PP-3001</div>
+        </div>
+        <div class="gov-foot">GOVERNANCE: every narrated $ is a finding's own <code>amountUsd</code>, every count a real row count. 1 unresolved ref (next-quarter margin forecast) was dropped and NOT narrated.</div>
       </div>
       <div class="lens" id="lens-ops">
-        <div class="claim"><span class="src">MMS060 · stock</span> <b>3 items</b> are below safety stock, all in the coupling family; one (HP-2040) is also allocated short.</div>
-        <div class="claim"><span class="src">OIS · orders</span> <b>4 orders</b> are on hold: 2 credit, 1 short-ship dispute, 1 pricing.</div>
-        <div class="claim"><span class="src tk">LIVE_TICKET</span> Two open tickets correlate to these holds (OPS-1423, OPS-1417).</div>
-        <div class="withhold">Withheld: root cause of the recurring credit hold — it spans a finance decision not recorded in any readable system.</div>
+        <div class="finding">
+          <div class="f-head"><span class="sv warn">HIGH</span> order flow delayed by credit holds <span class="f-amt">[$41,000]</span> <span class="f-conf">(confidence 0.90)</span><span class="f-agent">Order Management · lever: integration speed</span></div>
+          <div class="f-body">Four orders are on hold (2 credit, 1 short-ship dispute, 1 pricing); the credit ones clear once the limit review lands.</div>
+          <ul class="f-ev"><li>• OIS300MI.LstHead:HOLD=1 (2 rows) — orders 4711, 4720</li><li>• LIVE_TICKET (2 rows) — OPS-1423, OPS-1417 correlate to these holds</li></ul>
+          <div class="f-next">PROPOSED NEXT STEP → draft a standard release for orders now within limit (routes to Approvals)</div>
+        </div>
+        <div class="finding">
+          <div class="f-head"><span class="sv notice">MEDIUM</span> safety-stock shortfall, coupling family <span class="f-conf">(confidence 0.88)</span><span class="f-agent">Inventory &amp; Warehouse · lever: operational independence</span></div>
+          <div class="f-body">Three items are below safety stock, all in the coupling family; HP-2040 is also allocated short.</div>
+          <ul class="f-ev"><li>• MMS060MI.LstViaItem (3 rows) — HP-2040 (36/40), HP-2055 (18/30), HP-2210 (5/25)</li></ul>
+          <div class="f-next">PROPOSED NEXT STEP → draft a safety-stock raise on HP-2040 (routes to Approvals with a Consequence Preview)</div>
+        </div>
+        <div class="finding">
+          <div class="f-head"><span class="sv notice">MEDIUM</span> EDI ASN (856/DESADV) unmapped <span class="f-conf">(confidence 0.80)</span><span class="f-agent">EDI Reliability · lever: integration speed</span></div>
+          <div class="f-body">The 856/DESADV advance ship notice has no confirmed BOD carrier on this tenant, so it is withheld rather than guessed.</div>
+          <ul class="f-ev"><li>• (no resolved evidence — TO_VERIFY)</li></ul>
+          <div class="f-next">PROPOSED NEXT STEP → confirm the BOD carrier before enabling the ASN flow</div>
+        </div>
+        <div class="gov-foot">GOVERNANCE: root cause of the recurring credit hold is withheld — it spans a finance decision not recorded in any readable system; withheld, never guessed.</div>
       </div>
     </section>
 
