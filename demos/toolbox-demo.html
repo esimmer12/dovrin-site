@@ -47,7 +47,7 @@
   .nav .ic{width:15px;text-align:center;opacity:.85}
   .nav .ct{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:1px 6px}
   .nav .ct.ok{color:var(--verify);border-color:rgba(16,185,129,.4)} .nav .ct.warn{color:var(--warn);border-color:rgba(245,158,11,.4)}
-  .content{flex:1 1 auto;padding:20px 26px 60px;max-width:1010px;min-width:0}
+  .content{flex:1 1 auto;padding:20px 34px 60px;max-width:1580px;min-width:0}
   .panel{display:none;animation:fade .16s ease}.panel.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
   h2.ph{font-size:20px;margin:0 0 3px;letter-spacing:-.01em}
@@ -213,6 +213,8 @@
         <div class="stat"><div class="n warn">3</div><div class="l">Drafts awaiting confirm</div></div>
         <div class="stat"><div class="n">12</div><div class="l">Writes executed today</div></div>
         <div class="stat"><div class="n ok">Healthy</div><div class="l">Write-gate contract</div></div>
+        <div class="stat"><div class="n br">214</div><div class="l">MI programs walked</div></div>
+        <div class="stat"><div class="n">$12.40</div><div class="l">LLM cost today / $50</div></div>
       </div>
       <div class="grid2" style="margin-top:13px">
         <div class="card">
@@ -231,6 +233,27 @@
           <div class="row"><span>Supplier V-2044 lead-time change pending review</span><span class="badge b-deg">MED</span></div>
         </div>
       </div>
+      <h3 class="sh">Advisory sessions, agents &amp; recent activity</h3>
+      <div class="grid3">
+        <div class="card"><h4>Advisory sessions</h4>
+          <div class="row"><span>Reduce credit-hold delays (O2C)</span><span class="pill ok">RECOMMENDED</span></div>
+          <div class="row"><span>Month-end close checklist</span><span class="pill hold">PLANNING</span></div>
+          <div class="row"><span>Supplier bank-change review</span><span class="pill hold">PLANNING</span></div>
+          <div class="note" style="margin-top:8px">3 sessions · 12 steps · 5 drafts queued to Approvals</div>
+        </div>
+        <div class="card"><h4>Agents (background scans)</h4>
+          <div class="row"><span>AR Cash Acceleration</span><span class="chip">18 scans</span></div>
+          <div class="row"><span>Procurement Exception</span><span class="chip">11 scans</span></div>
+          <div class="row"><span>EDI Reliability</span><span class="chip">9 scans</span></div>
+          <div class="row"><span>Month-End Close</span><span class="chip">6 scans</span></div>
+        </div>
+        <div class="card"><h4>Recent activity</h4>
+          <div class="row"><span>Narrated the June close (CFO lens)</span><span class="chip">09:14</span></div>
+          <div class="row"><span>Refused a write — out of allowlist</span><span class="chip">10:02</span></div>
+          <div class="row"><span>Confirmed: release credit hold · 4711</span><span class="chip">10:20</span></div>
+          <div class="row"><span>Correlated OPS-1423 → C-1088</span><span class="chip">11:05</span></div>
+        </div>
+      </div>
       <h3 class="sh">Consultants (7)</h3>
       <div class="grid3">
         <div class="card"><h4>M3 Implementation Expert <span class="r"><code style="color:var(--brand-2)">@m3consultant</code></span></h4><div class="note">Verifies against MRS001MI before stating any fact. MI API (214 programs walked), config, personalizations.</div></div>
@@ -239,6 +262,7 @@
         <div class="card"><h4>Inventory &amp; Warehouse <span class="r"><code style="color:var(--brand-2)">@inventory</code></span></h4><div class="note">MMS200 · MMS060 · MMS005 · MMS080 — items, balances, reorder.</div></div>
         <div class="card"><h4>Manufacturing <span class="r"><code style="color:var(--brand-2)">@manufacturing</code></span></h4><div class="note">PMS100 · PDS001 · MMS002 — MOs, BOMs, materials.</div></div>
         <div class="card"><h4>Finance <span class="r"><code style="color:var(--brand-2)">@finance</code></span></h4><div class="note">GLS · ARS200 · APS200 — ledger, AR, AP, close.</div></div>
+        <div class="card"><h4>EDI &amp; Integration <span class="r"><code style="color:var(--brand-2)">@edi</code></span></h4><div class="note">ION BOD · MEC · X12 850/810/856/855 · EDIFACT ORDERS/INVOIC — mapping &amp; reliability.</div></div>
       </div>
     </section>
 
