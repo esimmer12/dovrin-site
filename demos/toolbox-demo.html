@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dovrin Toolbox — live demo</title>
+<meta name="description" content="A working demo of the Dovrin Toolbox: a daily M3 co-pilot with source-tagged Narrate, Consequence Preview, a governed write gate, and read-only ticketing. Synthetic tenant, no real data." />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    color-scheme: dark;
+    --bg:#0a0e1a; --panel:#111729; --panel-2:#1b2236; --raised:#18203a; --line:#242d47;
+    --text:#e9eefb; --muted:#9aa6c6; --faint:#6b7793;
+    --brand:#2f5bff; --brand-2:#5b83ff; --brand-soft:rgba(47,91,255,.16);
+    --verify:#10b981; --verify-soft:rgba(16,185,129,.15);
+    --warn:#f59e0b; --warn-soft:rgba(245,158,11,.14);
+    --crit:#ef4444; --crit-soft:rgba(239,68,68,.14);
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-variant-numeric:tabular-nums;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  code,.mono{font-family:var(--mono)}
+  .band{height:5px;background:linear-gradient(90deg,var(--brand),var(--verify))}
+  /* top bar */
+  .topbar{display:flex;align-items:center;gap:16px;padding:12px 20px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.01em;font-size:16px}
+  .logo .mk{width:26px;height:26px;border-radius:8px;background:linear-gradient(160deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:#fff;font-size:14px}
+  .env{display:flex;gap:7px;flex-wrap:wrap;margin-left:6px}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+  .chip b{color:var(--text)}
+  .demo-flag{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--warn);background:var(--warn-soft);border:1px solid rgba(245,158,11,.4);border-radius:999px;padding:4px 11px}
+  /* layout */
+  .layout{display:flex;align-items:flex-start;min-height:calc(100vh - 60px)}
+  .rail{flex:0 0 234px;background:var(--panel);border-right:1px solid var(--line);padding:14px 10px;position:sticky;top:0;max-height:100vh;overflow-y:auto}
+  .rail-group{font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin:16px 10px 7px}
+  .rail-group:first-child{margin-top:2px}
+  .nav{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:8px 11px;border:1px solid transparent;border-left:3px solid transparent;border-radius:8px;background:transparent;color:var(--text);cursor:pointer;font:inherit;font-size:13.5px;transition:.12s}
+  .nav:hover{background:var(--panel-2)}
+  .nav.active{background:var(--panel-2);border-color:var(--line);border-left-color:var(--brand)}
+  .nav .ic{width:16px;text-align:center;opacity:.85}
+  .nav .ct{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--faint);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:1px 7px}
+  .content{flex:1 1 auto;padding:22px 26px 60px;max-width:1000px;min-width:0}
+  .panel{display:none;animation:fade .18s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  h2.ph{font-size:20px;margin:0 0 3px;letter-spacing:-.01em}
+  p.pd{color:var(--muted);font-size:13.5px;margin:0 0 18px;max-width:76ch}
+  h3.sh{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin:24px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  /* KPI cards */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .kpi{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+  .kpi .n{font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .kpi .n.ok{color:var(--verify)} .kpi .n.warn{color:var(--warn)}
+  /* generic card + grid */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .card h4{margin:0 0 10px;font-size:13.5px;display:flex;align-items:center;gap:8px}
+  .sys{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .sysrow{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .sysrow:last-child{border-bottom:0}
+  .live{font-size:10.5px;font-weight:700;color:var(--verify);background:var(--verify-soft);border:1px solid rgba(16,185,129,.4);border-radius:999px;padding:2px 8px}
+  /* source tags + pills */
+  .src{font-family:var(--mono);font-size:11px;color:var(--brand-2);background:var(--brand-soft);border:1px solid rgba(91,131,255,.35);border-radius:5px;padding:2px 7px;white-space:nowrap}
+  .src.tk{color:var(--verify);background:var(--verify-soft);border-color:rgba(16,185,129,.4)}
+  .pill{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px}
+  .pill.hold{color:var(--warn);background:var(--warn-soft)} .pill.ok{color:var(--verify);background:var(--verify-soft)} .pill.stop{color:var(--crit);background:var(--crit-soft)}
+  /* chat */
+  .msg{display:flex;gap:11px;margin:14px 0}
+  .av{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
+  .av.u{background:#39406a} .av.a{background:linear-gradient(160deg,var(--brand),var(--brand-2))}
+  .bub{background:var(--panel);border:1px solid var(--line);border-radius:4px 12px 12px 12px;padding:11px 14px;font-size:13.5px;flex:1;min-width:0}
+  .bub.me{background:var(--panel-2)}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .withhold{margin-top:10px;font-size:12.5px;color:var(--warn);background:var(--warn-soft);border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:8px 11px}
+  /* consequence preview */
+  .cp{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+  .cp-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel-2)}
+  .cp-head .t{font-weight:700;font-size:14.5px}
+  .cp-sec{padding:14px 16px;border-bottom:1px solid var(--line)}
+  .cp-sec:last-child{border-bottom:0}
+  .cp-lbl{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+  .kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;font-size:13px}
+  .kv dt{color:var(--muted)} .kv dd{margin:0;font-family:var(--mono);font-size:12.5px}
+  .cons{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  .cons li{display:flex;gap:10px;font-size:13px;align-items:flex-start}
+  .cons .ar{color:var(--brand-2);font-weight:800}
+  .locks{display:flex;flex-direction:column;gap:7px;font-size:13px}
+  .lock{display:flex;align-items:center;gap:9px}
+  .lock .bx{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--verify);color:var(--verify);display:grid;place-items:center;font-size:11px;font-weight:800}
+  .lock .bx.pend{border-color:var(--warn);color:var(--warn)}
+  .cp-actions{padding:14px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .btn{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:9px;transition:.15s}
+  .btn.p{background:var(--brand);color:#fff} .btn.p:hover{background:#1d43d8}
+  .btn.g{background:transparent;color:var(--text);border:1px solid var(--line)} .btn.g:hover{background:var(--panel-2)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .cp-note{font-size:12px;color:var(--faint)}
+  .done{color:var(--verify);font-weight:700;font-size:13.5px;display:none;align-items:center;gap:7px}
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);background:var(--panel-2)}
+  tbody tr:last-child td{border-bottom:0}
+  td.mono{font-family:var(--mono);font-size:12px}
+  /* narrate */
+  .lens-tabs{display:flex;gap:8px;margin-bottom:14px}
+  .lens-tab{cursor:pointer;font:inherit;font-size:13px;font-weight:600;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 16px}
+  .lens-tab.active{color:#fff;background:var(--brand-soft);border-color:var(--brand)}
+  .claim{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:flex-start}
+  .claim:last-child{border-bottom:0}
+  .lens{display:none}.lens.active{display:block}
+  /* receipts / audit */
+  .rcpt{display:flex;gap:11px;font-size:13px;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--line)}
+  .rcpt:last-child{border-bottom:0} .rcpt b{color:var(--text);font-family:var(--mono);white-space:nowrap}
+  .foot{color:var(--faint);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+  @media(max-width:820px){.layout{flex-direction:column}.rail{flex:none;width:100%;position:static;max-height:none;display:flex;flex-wrap:wrap;gap:4px}.rail-group{width:100%}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="band"></div>
+<div class="topbar">
+  <div class="logo"><span class="mk">◇</span> Dovrin Toolbox</div>
+  <div class="env">
+    <span class="chip">TENANT <b>HARBORPEAK</b></span>
+    <span class="chip">ENV <b>DEV</b></span>
+    <span class="chip">CONO <b>100</b></span>
+    <span class="chip">DIVI <b>100</b></span>
+  </div>
+  <span class="demo-flag">◆ Offline demo · synthetic tenant · no real data</span>
+</div>
+
+<div class="layout">
+  <nav class="rail" id="rail">
+    <div class="rail-group">Co-pilot core</div>
+    <button class="nav active" data-t="home"><span class="ic">▚</span> Home <span class="ct">hub</span></button>
+    <button class="nav" data-t="chat"><span class="ic">✦</span> Co-Pilot <span class="ct">chat</span></button>
+    <button class="nav" data-t="approvals"><span class="ic">⛨</span> Approvals <span class="ct">3</span></button>
+    <button class="nav" data-t="tickets"><span class="ic">◫</span> Tickets <span class="ct">5</span></button>
+    <button class="nav" data-t="audit"><span class="ic">❑</span> Audit</button>
+    <div class="rail-group">Read &amp; run tools</div>
+    <button class="nav" data-t="mi"><span class="ic">⟐</span> MI Payload Builder</button>
+    <button class="nav" data-t="narrate"><span class="ic">✎</span> Narrate</button>
+    <button class="nav" data-t="compass"><span class="ic">◎</span> Compass (read-only)</button>
+  </nav>
+
+  <main class="content">
+    <!-- HOME -->
+    <section class="panel active" id="home">
+      <h2 class="ph">Home</h2>
+      <p class="pd">Your M3 day at a glance. Every number here is a live, read-only fold over this tenant's own data. Nothing is written without passing the governed write gate (see Approvals).</p>
+      <div class="kpis">
+        <div class="kpi"><div class="n warn">3</div><div class="l">Pending confirms</div></div>
+        <div class="kpi"><div class="n">12</div><div class="l">Executed today</div></div>
+        <div class="kpi"><div class="n">214</div><div class="l">MI programs in catalog</div></div>
+        <div class="kpi"><div class="n ok">Healthy</div><div class="l">Write-gate contract</div></div>
+        <div class="kpi"><div class="n">5</div><div class="l">Open tickets (Jira)</div></div>
+      </div>
+      <div class="grid2" style="margin-top:14px">
+        <div class="card">
+          <h4>Recent activity</h4>
+          <div class="sysrow"><span>Narrated the June close for the CFO lens</span><span class="chip">09:14</span></div>
+          <div class="sysrow"><span>Refused a write: safety-stock change out of allowlist</span><span class="chip">10:02</span></div>
+          <div class="sysrow"><span>Confirmed: release credit hold on order 4711</span><span class="chip">10:20</span></div>
+          <div class="sysrow"><span>Correlated ticket OPS-1423 to customer C-1088</span><span class="chip">11:05</span></div>
+        </div>
+        <div class="card">
+          <h4>Source health</h4>
+          <div class="sysrow"><span>M3 ION API (MI Lst/Get)</span><span class="live">● live</span></div>
+          <div class="sysrow"><span>Compass (SELECT-only)</span><span class="live">● live</span></div>
+          <div class="sysrow"><span>Jira (read-only)</span><span class="live">● live</span></div>
+          <div class="sysrow"><span>Document corpus</span><span class="live">● live</span></div>
+        </div>
+      </div>
+      <h3 class="sh">Connected systems</h3>
+      <div class="sys">
+        <div class="card"><h4>◆ M3 CloudSuite <span class="live">● live</span></h4><div class="sysrow"><span>MI catalog walked at boot (MRS001MI)</span><span class="chip">214</span></div><div class="sysrow"><span>Write allowlist (per-CONO, default-deny)</span><span class="chip">7</span></div></div>
+        <div class="card"><h4>◫ Jira <span class="live">● live</span></h4><div class="sysrow"><span>Read-only: search / list / get</span><span class="chip">JQL</span></div><div class="sysrow"><span>Tagged LIVE_TICKET, never blended</span><span class="chip">1.0</span></div></div>
+        <div class="card"><h4>◎ Compass <span class="live">● live</span></h4><div class="sysrow"><span>SELECT-only (assertSelectOnly)</span><span class="chip">read</span></div><div class="sysrow"><span>No DDL / DML reaches the tenant</span><span class="chip">deny</span></div></div>
+      </div>
+    </section>
+
+    <!-- CHAT -->
+    <section class="panel" id="chat">
+      <h2 class="ph">Co-Pilot</h2>
+      <p class="pd">Ask about the tenant in plain language. Every factual claim is validated against a read path before it reaches you, and carries its source tag. When the answer isn't in a system it can read, it withholds instead of guessing.</p>
+      <div class="msg"><div class="av u">You</div><div class="bub me">Why is order 4711 on hold?</div></div>
+      <div class="msg"><div class="av a">DT</div><div class="bub">
+        Order <b>4711</b> is on a <span class="pill hold">credit hold</span>. Customer <b>C-1088 (Riverside Supply)</b> is $12,400 over its credit limit: limit 50,000, open balance 62,400. There is also an open billing dispute logged in your ticketing system.
+        <div class="tags">
+          <span class="src">OIS100MI.GetHead · orderStatus</span>
+          <span class="src">CRS610MI.GetBasicData · credLim, balance</span>
+          <span class="src tk">LIVE_TICKET · OPS-1423</span>
+        </div>
+        <div class="withhold">I can't confirm whether finance intends to release it — that decision isn't recorded in any system I can read, so I'm withholding a recommendation rather than guessing. If you want to release it, that's a governed write and it'll wait for your confirmation in Approvals.</div>
+      </div></div>
+      <div class="msg"><div class="av u">You</div><div class="bub me">What's the on-hand for item HP-2040 in warehouse 100?</div></div>
+      <div class="msg"><div class="av a">DT</div><div class="bub">
+        On-hand for <b>HP-2040 (Hex Coupling 2")</b> in warehouse <b>100</b> is <b>36 EA</b>, with 80 EA allocated and a safety stock of 40 EA — so it's below safety stock.
+        <div class="tags"><span class="src">MMS060MI.GetItmWhs · stqt, alqt, sasa</span></div>
+      </div></div>
+    </section>
+
+    <!-- APPROVALS / CONSEQUENCE PREVIEW -->
+    <section class="panel" id="approvals">
+      <h2 class="ph">Approvals — Consequence Preview</h2>
+      <p class="pd">The core mechanic. A proposed write is shown as its <em>consequences</em>, not a raw field diff — you approve an outcome. Nothing touches the tenant until all three locks are satisfied and you confirm. Every confirmed write is recorded in a tamper-evident audit.</p>
+      <div class="cp">
+        <div class="cp-head">
+          <span class="pill hold">Pending confirm</span>
+          <span class="t">Raise safety stock on HP-2040 (Hex Coupling 2") in WHLO 100</span>
+        </div>
+        <div class="cp-sec">
+          <div class="cp-lbl">The write</div>
+          <dl class="kv">
+            <dt>Transaction</dt><dd>MMS002MI.UpdItmWhs</dd>
+            <dt>Item / warehouse</dt><dd>HP-2040 / 100</dd>
+            <dt>Field</dt><dd>SASA (safety stock): 40 → 120 EA</dd>
+            <dt>Requested by</dt><dd>you, via Co-Pilot</dd>
+          </dl>
+        </div>
+        <div class="cp-sec">
+          <div class="cp-lbl">Consequence preview — what will happen</div>
+          <ul class="cons">
+            <li><span class="ar">→</span> Next MRP run will generate a <b>new planned order for +84 EA</b> to cover the higher safety level <span class="src" style="margin-left:6px">MMS080 · material plan projection</span></li>
+            <li><span class="ar">→</span> Estimated purchase commitment <b>+$3,948</b> at current replenishment cost ($47.00/EA) <span class="src" style="margin-left:6px">MMS002 · replcost</span></li>
+            <li><span class="ar">→</span> Two open planned orders re-sequence; nearest due date moves in by ~4 days</li>
+            <li><span class="ar">→</span> No effect on posted transactions, allocations, or other warehouses</li>
+          </ul>
+        </div>
+        <div class="cp-sec">
+          <div class="cp-lbl">Write gate — triple lock</div>
+          <div class="locks">
+            <div class="lock"><span class="bx">✓</span> Allowlist: <code>MMS002MI.UpdItmWhs</code> permitted for CONO 100 (per-tenant, default-deny)</div>
+            <div class="lock"><span class="bx">✓</span> Confirm token issued (HMAC, single-use, 5-min TTL)</div>
+            <div class="lock" id="lock3"><span class="bx pend">3</span> Human confirmation — <b>you</b>, right now</div>
+          </div>
+        </div>
+        <div class="cp-actions">
+          <button class="btn p" id="confirmBtn">Confirm this outcome</button>
+          <button class="btn g" id="declineBtn">Decline</button>
+          <span class="cp-note">You are approving the <em>consequences</em> above, not a raw diff.</span>
+          <span class="done" id="cpDone">✓ Executed and written to the tamper-evident audit — see Audit.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKETS -->
+    <section class="panel" id="tickets">
+      <h2 class="ph">Tickets</h2>
+      <p class="pd">A read-only view of your ticketing system (Jira here), correlated to M3 entities. Ticket facts and M3 facts are each tagged to their own system of record and never blended. Nothing is written back.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Key</th><th>Summary</th><th>Status</th><th>Correlated M3 entity</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">OPS-1423</td><td>Billing dispute — Riverside Supply invoice 90341</td><td><span class="pill hold">Open</span></td><td class="mono">Customer C-1088</td><td><span class="src tk">LIVE_TICKET</span></td></tr>
+          <tr><td class="mono">OPS-1417</td><td>Short shipment reported on order 4688</td><td><span class="pill hold">Open</span></td><td class="mono">Order 4688</td><td><span class="src tk">LIVE_TICKET</span></td></tr>
+          <tr><td class="mono">OPS-1402</td><td>Item master data cleanup — coupling family</td><td><span class="pill ok">In review</span></td><td class="mono">Item grp HP-20xx</td><td><span class="src tk">LIVE_TICKET</span></td></tr>
+          <tr><td class="mono">OPS-1390</td><td>Supplier lead-time change — Anvil Metals</td><td><span class="pill hold">Open</span></td><td class="mono">Supplier V-2044</td><td><span class="src tk">LIVE_TICKET</span></td></tr>
+          <tr><td class="mono">OPS-1377</td><td>Recurring credit-hold on repeat customer</td><td><span class="pill hold">Open</span></td><td class="mono">Customer C-1088</td><td><span class="src tk">LIVE_TICKET</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="cp-note" style="margin-top:12px">JQL: <code>project = OPS AND status in (Open, "In review") ORDER BY updated DESC</code> — read-only. Remove the credential and this surface fails closed with a specific remediation, never a silent empty state.</p>
+    </section>
+
+    <!-- AUDIT -->
+    <section class="panel" id="audit">
+      <h2 class="ph">Audit</h2>
+      <p class="pd">Every governed write, hash-chained. Any later edit to a row (or a deletion, or a reorder) breaks the chain and fails verification. Below the log are our own governance failures — found, dated, and published before any tenant, because that's the whole point.</p>
+      <h3 class="sh">Confirmed writes (this tenant)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>seq</th><th>When</th><th>Action</th><th>By</th><th>entry_hash</th></tr></thead>
+        <tbody id="auditBody">
+          <tr><td class="mono">2</td><td class="mono">10:20:41</td><td>OIS330 · release credit hold · order 4711</td><td>you</td><td class="mono">a91c…7f20</td></tr>
+          <tr><td class="mono">1</td><td class="mono">09:52:10</td><td>MMS002MI.UpdItmWhs · reorder point HP-2210</td><td>you</td><td class="mono">6f4e…1bc3</td></tr>
+          <tr><td class="mono">0</td><td class="mono">08:00:00</td><td>GENESIS</td><td>system</td><td class="mono">GENESIS</td></tr>
+        </tbody>
+      </table></div>
+      <h3 class="sh">Own failures, published</h3>
+      <div class="rcpt"><b>2026-06-10</b> An adversarial audit found the write gate's "triple lock" was, as wired by default, a double lock. Fixed and published before any tenant ever connected.</div>
+      <div class="rcpt"><b>2026-06-24</b> Narrate degraded an UNVERIFIED claim to a hedged sentence instead of withholding it. Changed to hard-withhold; regression test added.</div>
+      <div class="rcpt"><b>2026-07-02</b> Compass read path accepted a query with a trailing DML statement. Locked to single SELECT (assertSelectOnly); fuzz test added.</div>
+    </section>
+
+    <!-- MI PAYLOAD BUILDER -->
+    <section class="panel" id="mi">
+      <h2 class="ph">MI Payload Builder</h2>
+      <p class="pd">The ION fluency proof. The Toolbox walks this tenant's own MI catalog live at boot (MRS001MI), so every transaction, field, type, and required flag comes from the tenant, not a hardcoded list. Here's the payload for the write from Approvals.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Field</th><th>Name</th><th>Type</th><th>Req</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">CONO</td><td>Company</td><td>N 3</td><td><span class="pill ok">yes</span></td><td class="mono">100</td></tr>
+          <tr><td class="mono">ITNO</td><td>Item number</td><td>A 15</td><td><span class="pill ok">yes</span></td><td class="mono">HP-2040</td></tr>
+          <tr><td class="mono">WHLO</td><td>Warehouse</td><td>A 3</td><td><span class="pill ok">yes</span></td><td class="mono">100</td></tr>
+          <tr><td class="mono">SASA</td><td>Safety stock</td><td>N 15,6</td><td>—</td><td class="mono">120</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cp-note" style="margin-top:12px">Registry source: <code>MRS001MI.LstMICategory → LstMIProgram → LstMITransaction</code>, walked at boot for CONO 100. Read-only route is default-allow; every write route is default-deny until allowlisted.</p>
+    </section>
+
+    <!-- NARRATE -->
+    <section class="panel" id="narrate">
+      <h2 class="ph">Narrate</h2>
+      <p class="pd">The same period, narrated for two roles — same facts, different framing. Every claim is validated before delivery and carries its source. Anything it can't verify is withheld, not softened.</p>
+      <div class="lens-tabs">
+        <button class="lens-tab active" data-lens="cfo">CFO lens</button>
+        <button class="lens-tab" data-lens="ops">Operations lens</button>
+      </div>
+      <div class="lens active" id="lens-cfo">
+        <div class="claim"><span class="src">GL · posted</span> Gross margin held at <b>31.2%</b> for the period, flat versus the trailing quarter.</div>
+        <div class="claim"><span class="src">ARS · aging</span> Receivables over 60 days rose to <b>$184k</b>, concentrated in two accounts.</div>
+        <div class="claim"><span class="src">CRS610 · credit</span> One customer (C-1088) is over its credit limit and gating $41k of open orders.</div>
+        <div class="withhold">Withheld: a forecast of next period's margin — no forward data source is readable, so no number is offered.</div>
+      </div>
+      <div class="lens" id="lens-ops">
+        <div class="claim"><span class="src">MMS060 · stock</span> <b>3 items</b> are below safety stock, all in the coupling family; one (HP-2040) is also allocated short.</div>
+        <div class="claim"><span class="src">OIS · orders</span> <b>4 orders</b> are on hold: 2 credit, 1 short-ship dispute, 1 pricing.</div>
+        <div class="claim"><span class="src tk">LIVE_TICKET</span> Two open Jira tickets correlate to these holds (OPS-1423, OPS-1417).</div>
+        <div class="withhold">Withheld: root cause of the recurring credit hold — it spans a finance decision not recorded in any readable system.</div>
+      </div>
+    </section>
+
+    <!-- COMPASS -->
+    <section class="panel" id="compass">
+      <h2 class="ph">Compass (read-only)</h2>
+      <p class="pd">Ad-hoc reads over the tenant's data warehouse, SELECT-only by construction. <code>assertSelectOnly</code> rejects anything but a single SELECT before it ever reaches the tenant — no DDL, no DML, no multi-statement.</p>
+      <div class="card"><h4>Query</h4><pre style="margin:0;font-family:var(--mono);font-size:12.5px;color:var(--brand-2);white-space:pre-wrap">SELECT ITNO, WHLO, STQT, SASA
+FROM   MITBAL
+WHERE  CONO = 100 AND STQT &lt; SASA
+ORDER  BY (SASA - STQT) DESC</pre></div>
+      <div class="tbl" style="margin-top:12px"><table>
+        <thead><tr><th>ITNO</th><th>WHLO</th><th>On hand</th><th>Safety</th><th>Short by</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">HP-2040</td><td class="mono">100</td><td class="mono">36</td><td class="mono">40</td><td class="mono">4</td></tr>
+          <tr><td class="mono">HP-2055</td><td class="mono">100</td><td class="mono">18</td><td class="mono">30</td><td class="mono">12</td></tr>
+          <tr><td class="mono">HP-2210</td><td class="mono">100</td><td class="mono">5</td><td class="mono">25</td><td class="mono">20</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cp-note" style="margin-top:12px">Try to append <code>; UPDATE MITBAL SET SASA = 0</code> and the read path rejects the whole request — SELECT-only is structural, not a prompt promise.</p>
+    </section>
+
+    <div class="foot">Dovrin Toolbox — interactive demo. Synthetic tenant "HARBORPEAK", fictional data; no real customer, tenant, or proprietary content. A product of Simmer Group LLC · dovrin.com</div>
+  </main>
+</div>
+
+<script>
+  // rail panel switching
+  var navs = document.querySelectorAll('.nav');
+  navs.forEach(function(b){
+    b.addEventListener('click', function(){
+      navs.forEach(function(n){n.classList.remove('active')});
+      b.classList.add('active');
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+      var el = document.getElementById(b.dataset.t);
+      if(el){el.classList.add('active'); document.querySelector('.content').scrollTo(0,0); window.scrollTo(0,0);}
+    });
+  });
+  // narrate lens tabs
+  document.querySelectorAll('.lens-tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.lens-tab').forEach(function(x){x.classList.remove('active')});
+      t.classList.add('active');
+      document.querySelectorAll('.lens').forEach(function(l){l.classList.remove('active')});
+      document.getElementById('lens-'+t.dataset.lens).classList.add('active');
+    });
+  });
+  // consequence preview confirm flow
+  var cb = document.getElementById('confirmBtn'), db = document.getElementById('declineBtn');
+  if(cb){
+    cb.addEventListener('click', function(){
+      var l3 = document.getElementById('lock3');
+      l3.querySelector('.bx').classList.remove('pend');
+      l3.querySelector('.bx').textContent = '✓';
+      cb.disabled = true; db.disabled = true;
+      cb.textContent = 'Confirmed';
+      document.getElementById('cpDone').style.display = 'inline-flex';
+      document.querySelector('#approvals .pill').textContent = 'Confirmed';
+      document.querySelector('#approvals .pill').className = 'pill ok';
+      // add a row to the audit log
+      var tb = document.getElementById('auditBody');
+      var tr = document.createElement('tr');
+      var now = new Date();
+      var hh = String(now.getHours()).padStart(2,'0'), mm = String(now.getMinutes()).padStart(2,'0'), ss = String(now.getSeconds()).padStart(2,'0');
+      tr.innerHTML = '<td class="mono">3</td><td class="mono">'+hh+':'+mm+':'+ss+'</td><td>MMS002MI.UpdItmWhs · safety stock HP-2040 40&rarr;120</td><td>you</td><td class="mono">c4eb…9d17</td>';
+      tb.insertBefore(tr, tb.firstChild);
+      // bump the Home pending-confirms KPI down
+      var kpi = document.querySelector('#home .kpi .n.warn'); if(kpi) kpi.textContent = '2';
+    });
+    db.addEventListener('click', function(){
+      cb.disabled = true; db.disabled = true;
+      document.querySelector('#approvals .pill').textContent = 'Declined';
+      document.querySelector('#approvals .pill').className = 'pill stop';
+      document.getElementById('cpDone').textContent = '✕ Declined — nothing was written.';
+      document.getElementById('cpDone').style.color = 'var(--muted)';
+      document.getElementById('cpDone').style.display = 'inline-flex';
+    });
+  }
+</script>
+</body>
+</html>
