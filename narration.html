@@ -62,7 +62,9 @@
   .brief-body strong{font-weight:700}
   .brief-list{margin:0 0 13px;padding-left:20px}
   .brief-list li{font-size:15px;line-height:1.6;margin-bottom:8px}
-  .cite{display:inline-block;font-family:var(--mono,monospace);font-size:11px;font-weight:600;color:var(--brand);background:var(--brand-soft);border:1px solid var(--brand);border-radius:6px;padding:1px 6px;margin:0 1px;vertical-align:baseline;white-space:nowrap}
+  .cite{position:relative;cursor:help;color:var(--brand);font-size:12px;font-weight:700;margin-left:1px;top:-2px;outline:none}
+  .cite::after{content:attr(data-facts);position:absolute;left:50%;transform:translateX(-50%) translateY(6px);bottom:100%;background:var(--ink);color:#eaf0ff;font-family:var(--mono,monospace);font-size:11px;font-weight:500;white-space:nowrap;padding:5px 9px;border-radius:7px;opacity:0;pointer-events:none;transition:.14s;box-shadow:var(--shadow);z-index:5}
+  .cite:hover::after,.cite:focus::after{opacity:1;transform:translateX(-50%) translateY(0)}
   .brief-foot{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:var(--muted);font-family:var(--mono,monospace)}
 
   .how{background:var(--ink);color:#dce4fb}
@@ -113,7 +115,7 @@
       <div><b>3 / 3</b><span>role briefs passed the gate</span></div>
       <div><b>18</b><span>source facts extracted</span></div>
       <div><b>0</b><span>uncited numbers shipped</span></div>
-      <div><b>as of 2026-09-09</b><span>read-only, no ERP writes</span></div>
+      <div><b>as of 2026-09-10</b><span>read-only, no ERP writes</span></div>
     </div>
   </div>
 </div>
@@ -121,7 +123,7 @@
 <div class="strip">
   <div class="wrap">
     <span class="k">HOW TO READ THIS</span>
-    <span>Every <span class="cite">F-…</span> chip is a citation: the number before it exists verbatim in that source fact. Nothing else is allowed through.</span>
+    <span>Hover the small <sup class="cite" data-facts="each ◦ names the exact source fact(s) behind the sentence" tabindex="0">◦</sup> marks to see the source fact behind each figure. Every number in the prose traces to one — nothing else is allowed through.</span>
   </div>
 </div>
 
@@ -143,13 +145,13 @@
     </div>
     <p class="brief-desc">What the receivables position means for cash and where the exposure sits.</p>
     <div class="brief-body">
-<h4 class="brief-date">2026-09-09</h4>
-<p>The company holds $18,899,392.06 in open receivables as of 2026-09-09 <span class="cite" title="grounded to fact F-open-ar-age-company">F-open-ar-age-company</span>. The average age of open AR is 1616.8 days <span class="cite" title="grounded to fact F-open-ar-age-company">F-open-ar-age-company</span>. Every dollar of that balance sits in the oldest aging bucket, representing 100% of total AR <span class="cite" title="grounded to fact F-exc-high-overdue-65">F-exc-high-overdue-65</span>. This is not a collections problem — it is a collections crisis.</p>
-<p>The data reflects activity only through 2026-06-18, 83 days before the as-of date <span class="cite" title="grounded to fact F-exc-data-freshness">F-exc-data-freshness</span>. Balances and ages do not capture any payments, adjustments, or new invoices after that date <span class="cite" title="grounded to fact F-exc-data-freshness">F-exc-data-freshness</span>. The position is a single snapshot with no prior period for comparison <span class="cite" title="grounded to fact F-exc-single-snapshot">F-exc-single-snapshot</span>.</p>
-<p>Rep SM <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span> carries $12,946,987.29 of the total, with an average book age of 1582.6 days <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span>. Rep MS <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span> holds $4,584,708.77 at 1591.9 days <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span>. Rep DA <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span> manages $564,420.17 at 1575.5 days <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span>. Every rep's portfolio is 100% overdue <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span> <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span> <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span>.</p>
-<p><strong>Action required:</strong> Confirm the data-freshness gap and update the source to reflect activity through the as-of date. Launch immediate escalation on the entire open balance, starting with the largest portfolios: SM <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span>, MS <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span>, and DA <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span>. Assess collectability account by account and reserve for write-offs where recovery is no longer realistic.</p>
+<h4 class="brief-date">2026-09-10</h4>
+<p>The receivables position is in crisis: $18,899,392.06 sits open and none of it is current<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. The entire balance is overdue, with an average age of 1617.8 days<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company" aria-label="Source: F-open-ar-age-company">◦</sup>. Cash is not coming — this is a collection failure, not a timing issue.</p>
+<p>The oldest bucket holds $18,899,392.06, 100% of total AR<sup class="cite" tabindex="0" data-facts="F-exc-high-overdue-65" aria-label="Source: F-exc-high-overdue-65">◦</sup>. Rep SM carries $12,946,987.29 at an average book age of 1583.6 days, all overdue<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup>. The remaining portfolios are smaller but no healthier; every book is fully overdue<sup class="cite" tabindex="0" data-facts="F-rep-ms, F-rep-da, F-rep-dk, F-rep-01, F-rep-03, F-rep-02" aria-label="Source: F-rep-ms, F-rep-da, F-rep-dk, F-rep-01, F-rep-03, F-rep-02">◦</sup>.</p>
+<p>One critical caveat: the source only runs through 2026-06-18, 84 days before the as-of date<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this is last quarter's position, not today's. The data is a single snapshot with no prior period<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>, so no trend is available — but the position as it stands is a liquidity emergency.</p>
+<p>Leadership must act immediately: escalate collection authority to the CFO, halt new credit, and demand payment plans from every account. This is not a portfolio to manage — it is a write-off in progress unless collections mobilize now.</p>
     </div>
-    <div class="brief-foot">7 distinct source facts cited · every figure traces to one</div>
+    <div class="brief-foot">11 distinct source facts cited · every figure traces to one</div>
   </article>
 
   <article class="brief">
@@ -162,28 +164,14 @@
     </div>
     <p class="brief-desc">Whose book is aging, whose is collecting, and which account calls happen this week.</p>
     <div class="brief-body">
-<h4 class="brief-date">2026-09-09</h4>
-<p><strong>Data caveat:</strong> This snapshot reflects activity only through 2026-06-18, 83 day(s) before the as-of date <span class="cite" title="grounded to fact F-exc-data-freshness">F-exc-data-freshness</span>. The source is a single point-in-time transactional AR table with no prior-period comparison available <span class="cite" title="grounded to fact F-exc-single-snapshot">F-exc-single-snapshot</span>. Balances and ages shown are the standing position as of 2026-09-09, not a trend.</p>
-<p>The company carries $18,899,392.06 in open AR with an average age of 1616.8 days <span class="cite" title="grounded to fact F-open-ar-age-company">F-open-ar-age-company</span>. Every dollar is in the oldest bucket: 100% of AR is beyond the threshold, representing $18,899,392.06 in potentially uncollectible receivables <span class="cite" title="grounded to fact F-exc-high-overdue-65">F-exc-high-overdue-65</span>. Every rep's book is 100% overdue <span class="cite" title="grounded to fact F-rep-vc01">F-rep-vc01</span> <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span> <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span> <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span> <span class="cite" title="grounded to fact F-rep-cr">F-rep-cr</span> <span class="cite" title="grounded to fact F-rep-dm">F-rep-dm</span> <span class="cite" title="grounded to fact F-rep-jb">F-rep-jb</span> <span class="cite" title="grounded to fact F-rep-os">F-rep-os</span> <span class="cite" title="grounded to fact F-rep-dk">F-rep-dk</span> <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span> <span class="cite" title="grounded to fact F-rep-cp">F-rep-cp</span> <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span> <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span>.</p>
-<p><strong>Rep portfolios by size and age:</strong></p>
-<ul class="brief-list">
-<li>SM <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span>: $12,946,987.29, average age 1582.6 days, 100% overdue</li>
-<li>MS <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span>: $4,584,708.77, average age 1591.9 days, 100% overdue</li>
-<li>DA <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span>: $564,420.17, average age 1575.5 days, 100% overdue</li>
-<li>01 <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span>: $214,619.54, average age 2723.5 days, 100% overdue</li>
-<li>03 <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span>: $169,446.48, average age 2748.6 days, 100% overdue</li>
-<li>DK <span class="cite" title="grounded to fact F-rep-dk">F-rep-dk</span>: $168,743.40, average age 1619.8 days, 100% overdue</li>
-<li>02 <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span>: $142,843.33, average age 2690.2 days, 100% overdue</li>
-<li>DM <span class="cite" title="grounded to fact F-rep-dm">F-rep-dm</span>: $38,394.00, average age 1581.4 days, 100% overdue</li>
-<li>CR <span class="cite" title="grounded to fact F-rep-cr">F-rep-cr</span>: $36,530.10, average age 1627.3 days, 100% overdue</li>
-<li>CP <span class="cite" title="grounded to fact F-rep-cp">F-rep-cp</span>: $24,182.00, average age 1589.9 days, 100% overdue</li>
-<li>JB <span class="cite" title="grounded to fact F-rep-jb">F-rep-jb</span>: $5,040.00, average age 1647.0 days, 100% overdue</li>
-<li>OS <span class="cite" title="grounded to fact F-rep-os">F-rep-os</span>: $3,023.98, average age 1622.0 days, 100% overdue</li>
-<li>VC01 <span class="cite" title="grounded to fact F-rep-vc01">F-rep-vc01</span>: $453.00, average age 731.2 days, 100% overdue</li>
-</ul>
-<p>Reps 03 <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span>, 01 <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span>, and 02 <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span> carry the oldest books. Every account conversation this week is a collection escalation: write-off review, legal referral, or settlement negotiation. SM <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span> and MS <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span> own the bulk of the exposure and must prioritize the largest balances for immediate action. DA <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span>, DK <span class="cite" title="grounded to fact F-rep-dk">F-rep-dk</span>, and the numeric-code reps need account-by-account triage to determine what is recoverable.</p>
+<h4 class="brief-date">AR Position as of 2026-09-10</h4>
+<p>Every dollar we have on the books is overdue — and has been for years. The company holds $18,899,392.06 in open AR at an average age of 1617.8 days, and 100% of it sits beyond the oldest aging bucket<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. This is not a collections problem; it is a write-off backlog masquerading as receivables.</p>
+<p>One critical caveat: the source only runs through 2026-06-18, 84 day(s) back<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this snapshot reflects last quarter's position, not today's. Any payments, disputes, or account activity since mid-June is invisible here. That said, the aging profile — every balance years overdue — suggests the staleness of the data is not the core issue.</p>
+<p><strong>Rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup></strong> carries the exposure: $12,946,987.29 at an average book age of 1583.6 days and 100% overdue. <strong>Rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup></strong> holds $4,584,708.77 at 1592.9 days, also fully overdue. <strong>Rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup></strong> owns $564,420.17 at 1576.5 days, 100% overdue. The remaining portfolios — <strong>rep 01<sup class="cite" tabindex="0" data-facts="F-rep-01" aria-label="Source: F-rep-01">◦</sup></strong> at $214,619.54 and 2724.5 days, <strong>rep DK<sup class="cite" tabindex="0" data-facts="F-rep-dk" aria-label="Source: F-rep-dk">◦</sup></strong> at $168,743.40 and 1620.8 days, <strong>rep 03<sup class="cite" tabindex="0" data-facts="F-rep-03" aria-label="Source: F-rep-03">◦</sup></strong> at $169,446.48 and 2749.6 days, <strong>rep 02<sup class="cite" tabindex="0" data-facts="F-rep-02" aria-label="Source: F-rep-02">◦</sup></strong> at $142,843.33 and 2691.2 days — are smaller but no healthier; every one is overdue<sup class="cite" tabindex="0" data-facts="F-rep-01, F-rep-dk, F-rep-03, F-rep-02" aria-label="Source: F-rep-01, F-rep-dk, F-rep-03, F-rep-02">◦</sup>.</p>
+<p><strong>Actions this week:</strong> Rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup>, rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup>, and rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup> need to triage their books account by account: which balances are disputed and awaiting resolution, which are collectible with executive escalation, and which are uncollectible and should be written off immediately. The remaining reps should do the same review at smaller scale. No new sales conversations until each portfolio owner can certify which of these ancient balances is real AR and which is accounting debris.</p>
+<p>Note: this is a single point-in-time snapshot with no prior-period comparison available<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>, so we cannot say whether the position is improving or deteriorating — only that it is, as of this date, entirely overdue.</p>
     </div>
-    <div class="brief-foot">17 distinct source facts cited · every figure traces to one</div>
+    <div class="brief-foot">11 distinct source facts cited · every figure traces to one</div>
   </article>
 
   <article class="brief">
@@ -196,13 +184,19 @@
     </div>
     <p class="brief-desc">The oldest-first waterfall, the exception queue, and where to route calls.</p>
     <div class="brief-body">
-<h4 class="brief-date">2026-09-09</h4>
-<p><strong>Aging waterfall:</strong> The entire open AR position—$18,899,392.06—sits in the oldest bucket, representing 100% of total receivables <span class="cite" title="grounded to fact F-open-ar-age-company">F-open-ar-age-company</span>. The average age of open AR is 1616.8 days <span class="cite" title="grounded to fact F-open-ar-age-company">F-open-ar-age-company</span>. No balances appear in any earlier aging band; current and near-current receivables are zero <span class="cite" title="grounded to fact F-open-ar-age-company">F-open-ar-age-company</span>.</p>
-<p><strong>Exception queue:</strong> The oldest bucket holds 100% of AR, $18,899,392.06, well above the threshold for high-overdue concentration <span class="cite" title="grounded to fact F-exc-high-overdue-65">F-exc-high-overdue-65</span>. Every rep portfolio shows 100% overdue <span class="cite" title="grounded to fact F-rep-sm">F-rep-sm</span> <span class="cite" title="grounded to fact F-rep-ms">F-rep-ms</span> <span class="cite" title="grounded to fact F-rep-da">F-rep-da</span> <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span> <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span> <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span> <span class="cite" title="grounded to fact F-rep-dk">F-rep-dk</span> <span class="cite" title="grounded to fact F-rep-dm">F-rep-dm</span> <span class="cite" title="grounded to fact F-rep-cp">F-rep-cp</span> <span class="cite" title="grounded to fact F-rep-cr">F-rep-cr</span> <span class="cite" title="grounded to fact F-rep-jb">F-rep-jb</span> <span class="cite" title="grounded to fact F-rep-os">F-rep-os</span> <span class="cite" title="grounded to fact F-rep-vc01">F-rep-vc01</span>.</p>
-<p><strong>Rep routing priorities:</strong> Rep 03 <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span> carries the oldest book at an average age of 2748.6 days <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span>, followed by rep 01 <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span> at 2723.5 days <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span> and rep 02 <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span> at 2690.2 days <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span>. Route escalation and write-off review calls to rep 03 <span class="cite" title="grounded to fact F-rep-03">F-rep-03</span>, rep 01 <span class="cite" title="grounded to fact F-rep-01">F-rep-01</span>, and rep 02 <span class="cite" title="grounded to fact F-rep-02">F-rep-02</span> first; their portfolios hold the most severely aged receivables.</p>
-<p><strong>Data caveats:</strong> This is a single point-in-time snapshot as of 2026-09-09; no prior-period comparison is available <span class="cite" title="grounded to fact F-exc-single-snapshot">F-exc-single-snapshot</span>. The latest transaction activity visible in the source is 2026-06-18, 83 days before the as-of date; balances and ages do not reflect any activity after that date <span class="cite" title="grounded to fact F-exc-data-freshness">F-exc-data-freshness</span>. Additionally, 344 negative-amount items totaling $276,043.53 were excluded pending transaction-code confirmation <span class="cite" title="grounded to fact F-exc-unclassified-negative-amounts">F-exc-unclassified-negative-amounts</span>.</p>
+<h4 class="brief-date">2026-09-10</h4>
+<p>The receivables book is in crisis: $18,899,392.06 is open and the entire balance is overdue<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. The oldest bucket holds 100% of AR, representing $18,899,392.06 in potentially uncollectible receivables<sup class="cite" tabindex="0" data-facts="F-exc-high-overdue-65" aria-label="Source: F-exc-high-overdue-65">◦</sup>. The balance-weighted average age of open AR is 1617.8 days<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company" aria-label="Source: F-open-ar-age-company">◦</sup>. No balance sits in any current or near-term bucket; every dollar is aged beyond the threshold<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company" aria-label="Source: F-open-ar-age-company">◦</sup>.</p>
+<p><strong>Exception Queue</strong></p>
+<ul class="brief-list">
+<li>High-overdue alarm: the oldest bucket holds 100% of total AR, $18,899,392.06, above the 15% threshold<sup class="cite" tabindex="0" data-facts="F-exc-high-overdue-65" aria-label="Source: F-exc-high-overdue-65">◦</sup>. Route escalation calls to the account owners carrying the worst exposure.</li>
+<li>Rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup> carries $12,946,987.29 at an average book age of 1583.6 days, 100% overdue<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup>. Rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup> holds $4,584,708.77 at 1592.9 days average age, 100% overdue<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup>. Rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup> carries $564,420.17 at 1576.5 days, 100% overdue<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup>. The remaining books are smaller but no healthier; every one is fully overdue.</li>
+</ul>
+<p><strong>Data Caveats</strong></p>
+<p>One caveat: the source only runs through 2026-06-18, 84 day(s) back<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this is last quarter's position, not today's. Additionally, 344 negative-amount AR item(s) totaling $276,043.53 were excluded from AR totals, aging buckets, weighted-age, and rep aggregates, pending transcd/sign-convention confirmation on tenant<sup class="cite" tabindex="0" data-facts="F-exc-unclassified-negative-amounts" aria-label="Source: F-exc-unclassified-negative-amounts">◦</sup>. This is a single point-in-time snapshot as of 2026-09-10; no prior-period comparison, age trend, or change-over-time figure is available<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>.</p>
+<p><strong>Priority Actions</strong></p>
+<p>Route all escalation calls to rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup>, rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup>, and rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup> first; their portfolios carry the largest exposures. Demand payment plans on every account; no balance is current. Escalate legal review for accounts beyond collection reach.</p>
     </div>
-    <div class="brief-foot">18 distinct source facts cited · every figure traces to one</div>
+    <div class="brief-foot">8 distinct source facts cited · every figure traces to one</div>
   </article>
     </div>
     <div class="disc">
@@ -234,7 +228,7 @@
     <p style="color:#aebde4;font-size:14px;max-width:60ch;margin:14px 0 22px">The ERP AI that shows its receipts. Governed, verifiable, human-confirmed. This page shows real engine output, run live against a <strong>synthetic co-development tenant</strong> — the figures are demo data, not any customer's records.</p>
     <div class="foot-bottom">
       <span>© 2026 Simmer Group LLC. Dovrin is a product of Simmer Group LLC.</span>
-      <span>Narration engine · read-only · 80,112 tokens this run</span>
+      <span>Narration engine · read-only · 139,715 tokens this run</span>
     </div>
   </div>
 </footer>
