@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- TEST RUN: keep search engines off the prototype. REMOVE this line at real launch on dovrin.com. -->
 <meta name="robots" content="noindex, nofollow" />
-<title>Dovrin — see the brief it wouldn't send</title>
+<title>Dovrin: see the brief it wouldn't send</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <meta name="description" content="Dovrin is the grounding gate between AI and your ERP data: it cites every number to the source, or it withholds the brief. This page shows a brief the gate killed, next to one it passed. Design-partner-ready, not GA; synthetic co-development data." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +43,7 @@
   .section-head h2{font-size:31px;letter-spacing:-.02em;margin:12px 0 0;font-weight:800}
   .section-head p{font-size:17px;color:var(--muted);margin-top:12px;line-height:1.55}
 
-  /* Watch it refuse — the withheld vs passed pair */
+  /* Watch it refuse: the withheld vs passed pair */
   .refuse{background:linear-gradient(180deg,var(--paper),var(--faint,#f5f7fb))}
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
   .draft{border-radius:16px;padding:24px;border:1px solid var(--line);background:var(--paper);box-shadow:var(--shadow)}
@@ -107,7 +107,7 @@
   <div class="wrap">
     <div class="eyebrow">The grounding gate, on the read side</div>
     <h1>See the brief it <span class="accent">wouldn't send.</span></h1>
-    <p class="sub">Most vendors demo their best answer. This page shows you one Dovrin killed. The gate reads your ERP, cites every figure, and withholds any brief that carries a number it can't trace — so a wrong figure never reaches your board deck.</p>
+    <p class="sub">Most vendors demo their best answer. This page shows you one Dovrin killed. The gate reads your ERP, cites every figure, and withholds any brief that carries a number it can't trace, so a wrong figure never reaches your board deck.</p>
     <div class="hero-cta"><a class="btn btn-primary btn-lg" href="#refuse">Watch it withhold a brief ↓</a></div>
   </div>
 </div>
@@ -117,21 +117,21 @@
     <div class="section-head">
       <div class="eyebrow">The proof most AI vendors can't show you</div>
       <h2>This is a brief the gate killed.</h2>
-      <p>On the left is a draft the model wrote and the gate refused to release — the figures in it were rounded and re-derived instead of traced to a source read, so the whole brief was withheld. On the right is the same request after the gate passed it, every figure hover-traceable to the row it came from. Almost no AI vendor will show you its own model being stopped. That is the entire point.</p>
+      <p>On the left is a draft the model wrote and the gate refused to release. The figures in it were rounded and re-derived instead of traced to a source read, so the whole brief was withheld. On the right is the same request after the gate passed it, every figure hover-traceable to the row it came from. Almost no AI vendor will show you its own model being stopped. That is the entire point.</p>
     </div>
     <div class="pair">
       <div class="draft left">
-        <span class="lbl">Withheld — not sent</span>
+        <span class="lbl">Withheld · not sent</span>
         <p class="q">The company has <mark class="caught">$18.9 million</mark> tied up in receivables that have been outstanding for <mark class="caught">more than four years</mark> on average, and the data is <mark class="caught">nearly three months</mark> out of date.</p>
         <div class="caught-note">
           <h5>The gate caught</h5>
-          <ul><li><b>$18.9 million</b> — a rounded restatement — the source fact carries $18,899,392.06, so “$18.9 million” is a number the model computed, not one it can trace</li>
-<li><b>more than four years</b> — a duration the model derived from a day-count; the fact carries an age in days, not years</li>
-<li><b>nearly three months</b> — same — a converted, approximated gap the model produced instead of citing the exact figure</li></ul>
+          <ul><li><b>$18.9 million</b>: a rounded restatement; the source fact carries $18,899,392.06, so “$18.9 million” is a number the model computed, not one it can trace</li>
+<li><b>more than four years</b>: a duration the model derived from a day count; the fact carries an age in days, not years</li>
+<li><b>nearly three months</b>: the same problem: a converted, approximated gap the model produced instead of citing the exact figure</li></ul>
         </div>
       </div>
       <div class="draft right">
-        <span class="lbl">Passed — every number cited</span>
+        <span class="lbl">Passed · every number cited</span>
         <p class="q">The receivables position is in crisis: $18,899,392.06 sits open at an average age of 1,617.8 days<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company">◦</sup>. One caveat: the source only runs through 2026-06-18, 84 days before the as-of date<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness">◦</sup>, so this is last quarter’s position, not today’s.</p>
       </div>
     </div>
@@ -144,7 +144,7 @@
     <div class="section-head">
       <div class="eyebrow">One position, three role lenses</div>
       <h2>What ships when the gate passes it</h2>
-      <p>The same underlying facts, narrated for three readers — each graded independently by the gate, each figure traceable. Hover any <sup class="cite" data-facts="each ◦ names the exact source fact(s) behind the sentence" tabindex="0">◦</sup> to see the source fact behind the number.</p>
+      <p>The same underlying facts, narrated for three readers, each graded independently by the gate, and every figure traceable. Hover any <sup class="cite" data-facts="each ◦ names the exact source fact(s) behind the sentence" tabindex="0">◦</sup> to see the source fact behind the number.</p>
     </div>
     <div class="briefs">
 
@@ -153,10 +153,10 @@
     <span class="verdict pass">✓ PASSED · every number cited</span></div>
     <div class="brief-body">
 <h4 class="brief-date">2026-09-10</h4>
-<p>The receivables position is in crisis: $18,899,392.06 sits open and none of it is current<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. The entire balance is overdue, with an average age of 1617.8 days<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company" aria-label="Source: F-open-ar-age-company">◦</sup>. Cash is not coming — this is a collection failure, not a timing issue.</p>
+<p>The receivables position is in crisis: $18,899,392.06 sits open and none of it is current<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. The entire balance is overdue, with an average age of 1617.8 days<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company" aria-label="Source: F-open-ar-age-company">◦</sup>. Cash is not coming, this is a collection failure, not a timing issue.</p>
 <p>The oldest bucket holds $18,899,392.06, 100% of total AR<sup class="cite" tabindex="0" data-facts="F-exc-high-overdue-65" aria-label="Source: F-exc-high-overdue-65">◦</sup>. Rep SM carries $12,946,987.29 at an average book age of 1583.6 days, all overdue<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup>. The remaining portfolios are smaller but no healthier; every book is fully overdue<sup class="cite" tabindex="0" data-facts="F-rep-ms, F-rep-da, F-rep-dk, F-rep-01, F-rep-03, F-rep-02" aria-label="Source: F-rep-ms, F-rep-da, F-rep-dk, F-rep-01, F-rep-03, F-rep-02">◦</sup>.</p>
-<p>One critical caveat: the source only runs through 2026-06-18, 84 days before the as-of date<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this is last quarter's position, not today's. The data is a single snapshot with no prior period<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>, so no trend is available — but the position as it stands is a liquidity emergency.</p>
-<p>Leadership must act immediately: escalate collection authority to the CFO, halt new credit, and demand payment plans from every account. This is not a portfolio to manage — it is a write-off in progress unless collections mobilize now.</p>
+<p>One critical caveat: the source only runs through 2026-06-18, 84 days before the as-of date<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this is last quarter's position, not today's. The data is a single snapshot with no prior period<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>, so no trend is available, but the position as it stands is a liquidity emergency.</p>
+<p>Leadership must act immediately: escalate collection authority to the CFO, halt new credit, and demand payment plans from every account. This is not a portfolio to manage, it is a write-off in progress unless collections mobilize now.</p>
     </div>
     <div class="brief-foot">11 distinct source facts cited · every figure traces to one</div>
   </article>
@@ -166,11 +166,11 @@
     <span class="verdict pass">✓ PASSED · every number cited</span></div>
     <div class="brief-body">
 <h4 class="brief-date">AR Position as of 2026-09-10</h4>
-<p>Every dollar we have on the books is overdue — and has been for years. The company holds $18,899,392.06 in open AR at an average age of 1617.8 days, and 100% of it sits beyond the oldest aging bucket<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. This is not a collections problem; it is a write-off backlog masquerading as receivables.</p>
-<p>One critical caveat: the source only runs through 2026-06-18, 84 day(s) back<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this snapshot reflects last quarter's position, not today's. Any payments, disputes, or account activity since mid-June is invisible here. That said, the aging profile — every balance years overdue — suggests the staleness of the data is not the core issue.</p>
-<p><strong>Rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup></strong> carries the exposure: $12,946,987.29 at an average book age of 1583.6 days and 100% overdue. <strong>Rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup></strong> holds $4,584,708.77 at 1592.9 days, also fully overdue. <strong>Rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup></strong> owns $564,420.17 at 1576.5 days, 100% overdue. The remaining portfolios — <strong>rep 01<sup class="cite" tabindex="0" data-facts="F-rep-01" aria-label="Source: F-rep-01">◦</sup></strong> at $214,619.54 and 2724.5 days, <strong>rep DK<sup class="cite" tabindex="0" data-facts="F-rep-dk" aria-label="Source: F-rep-dk">◦</sup></strong> at $168,743.40 and 1620.8 days, <strong>rep 03<sup class="cite" tabindex="0" data-facts="F-rep-03" aria-label="Source: F-rep-03">◦</sup></strong> at $169,446.48 and 2749.6 days, <strong>rep 02<sup class="cite" tabindex="0" data-facts="F-rep-02" aria-label="Source: F-rep-02">◦</sup></strong> at $142,843.33 and 2691.2 days — are smaller but no healthier; every one is overdue<sup class="cite" tabindex="0" data-facts="F-rep-01, F-rep-dk, F-rep-03, F-rep-02" aria-label="Source: F-rep-01, F-rep-dk, F-rep-03, F-rep-02">◦</sup>.</p>
+<p>Every dollar we have on the books is overdue, and has been for years. The company holds $18,899,392.06 in open AR at an average age of 1617.8 days, and 100% of it sits beyond the oldest aging bucket<sup class="cite" tabindex="0" data-facts="F-open-ar-age-company, F-exc-high-overdue-65" aria-label="Source: F-open-ar-age-company, F-exc-high-overdue-65">◦</sup>. This is not a collections problem; it is a write-off backlog masquerading as receivables.</p>
+<p>One critical caveat: the source only runs through 2026-06-18, 84 day(s) back<sup class="cite" tabindex="0" data-facts="F-exc-data-freshness" aria-label="Source: F-exc-data-freshness">◦</sup>, so this snapshot reflects last quarter's position, not today's. Any payments, disputes, or account activity since mid-June is invisible here. That said, the aging profile, every balance years overdue, suggests the staleness of the data is not the core issue.</p>
+<p><strong>Rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup></strong> carries the exposure: $12,946,987.29 at an average book age of 1583.6 days and 100% overdue. <strong>Rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup></strong> holds $4,584,708.77 at 1592.9 days, also fully overdue. <strong>Rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup></strong> owns $564,420.17 at 1576.5 days, 100% overdue. The remaining portfolios, <strong>rep 01<sup class="cite" tabindex="0" data-facts="F-rep-01" aria-label="Source: F-rep-01">◦</sup></strong> at $214,619.54 and 2724.5 days, <strong>rep DK<sup class="cite" tabindex="0" data-facts="F-rep-dk" aria-label="Source: F-rep-dk">◦</sup></strong> at $168,743.40 and 1620.8 days, <strong>rep 03<sup class="cite" tabindex="0" data-facts="F-rep-03" aria-label="Source: F-rep-03">◦</sup></strong> at $169,446.48 and 2749.6 days, <strong>rep 02<sup class="cite" tabindex="0" data-facts="F-rep-02" aria-label="Source: F-rep-02">◦</sup></strong> at $142,843.33 and 2691.2 days, are smaller but no healthier; every one is overdue<sup class="cite" tabindex="0" data-facts="F-rep-01, F-rep-dk, F-rep-03, F-rep-02" aria-label="Source: F-rep-01, F-rep-dk, F-rep-03, F-rep-02">◦</sup>.</p>
 <p><strong>Actions this week:</strong> Rep SM<sup class="cite" tabindex="0" data-facts="F-rep-sm" aria-label="Source: F-rep-sm">◦</sup>, rep MS<sup class="cite" tabindex="0" data-facts="F-rep-ms" aria-label="Source: F-rep-ms">◦</sup>, and rep DA<sup class="cite" tabindex="0" data-facts="F-rep-da" aria-label="Source: F-rep-da">◦</sup> need to triage their books account by account: which balances are disputed and awaiting resolution, which are collectible with executive escalation, and which are uncollectible and should be written off immediately. The remaining reps should do the same review at smaller scale. No new sales conversations until each portfolio owner can certify which of these ancient balances is real AR and which is accounting debris.</p>
-<p>Note: this is a single point-in-time snapshot with no prior-period comparison available<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>, so we cannot say whether the position is improving or deteriorating — only that it is, as of this date, entirely overdue.</p>
+<p>Note: this is a single point-in-time snapshot with no prior-period comparison available<sup class="cite" tabindex="0" data-facts="F-exc-single-snapshot" aria-label="Source: F-exc-single-snapshot">◦</sup>, so we cannot say whether the position is improving or deteriorating, only that it is, as of this date, entirely overdue.</p>
     </div>
     <div class="brief-foot">11 distinct source facts cited · every figure traces to one</div>
   </article>
@@ -202,7 +202,7 @@
     <div class="section-head"><div class="eyebrow">What we won't overclaim</div><h2>The honest edges, stated as edges</h2></div>
     <div class="limgrid">
       <div class="limcard"><b>Design-partner-ready, not GA</b><p>This runs with design partners on a co-development tenant, not sold as generally available. We'd rather tell you that than let you find out.</p></div>
-      <div class="limcard"><b>Synthetic data, on this run</b><p>These briefs run on synthetic ERP data built to mirror M3/CloudSuite structure. We say "on this run," never "100% accurate" — the gate proves the model didn't invent a number, not that it's the right one for your business.</p></div>
+      <div class="limcard"><b>Synthetic data, on this run</b><p>These briefs run on synthetic ERP data built to mirror M3/CloudSuite structure. We say "on this run," never "100% accurate." The gate proves the model didn't invent a number, not that it's the right one for your business.</p></div>
       <div class="limcard"><b>Inference stays within Infor's platform</b><p>We're precise about where the model runs, and we won't tell you it "never leaves your tenant." Ask for the residency one-pager and we'll show you exactly where it happens.</p></div>
       <div class="limcard"><b>It catches the model, not the business</b><p>The gate verifies every figure traces to a source read. Validating those are the <em>right</em> facts is the extraction layer plus a human confirming. We draw that line on purpose.</p></div>
     </div>
@@ -212,7 +212,7 @@
 <section class="close">
   <div class="wrap">
     <h2>Run it against your own numbers.</h2>
-    <p>Become a design partner: we stand up the gate on your data, you watch it refuse the briefs it can't prove — free, for 30 days.</p>
+    <p>Become a design partner: we stand up the gate on your data, you watch it refuse the briefs it can't prove. Free, for 30 days.</p>
     <a class="btn btn-primary btn-lg" href="index.html#cta">Join the design-partner program →</a>
     <p class="memory">The one AI that showed you what it wouldn't say.</p>
   </div>
@@ -224,7 +224,7 @@
       <svg class="mark" viewBox="0 0 40 40" fill="none" style="width:26px;height:26px"><defs><linearGradient id="dg2" x1="6" y1="4" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b6bff"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><path d="M20 2.6l13.4 7.74a4 4 0 012 3.46v12.4a4 4 0 01-2 3.46L20 37.4 6.6 29.66a4 4 0 01-2-3.46V13.8a4 4 0 012-3.46L20 2.6z" fill="url(#dg2)"/><path d="M13.4 20.8l4.3 4.3L27 14.9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Dovrin
     </a>
-    <p style="color:#aebde4;font-size:14px;max-width:62ch;margin:14px 0 8px">The grounding gate between AI and your ERP. It cites every number, or it won't say it. This page shows real engine output, run against a <strong>synthetic co-development tenant</strong> — the figures are demo data, not any customer's records.</p>
+    <p style="color:#aebde4;font-size:14px;max-width:62ch;margin:14px 0 8px">The grounding gate between AI and your ERP. It cites every number, or it won't say it. This page shows real engine output, run against a <strong>synthetic co-development tenant</strong>. The figures are demo data, not any customer's records.</p>
     <div class="foot-bottom">
       <span>© 2026 Simmer Group LLC. Dovrin is a product of Simmer Group LLC.</span>
       <span>Grounding gate · read-only · 139,715 tokens this run</span>
